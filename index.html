@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title> </title>
 <link rel="stylesheet" type="text/css" href="style.css" />
-
+<script type="text/javascript" src="js/script.js"> </script> 
 
 </head>
 
@@ -41,10 +41,19 @@
         alert('code: '    + error.code    + '\n' +
               'message: ' + error.message + '\n');
     }
-
+	
+	
     </script>
   </head>
   <body>
     <p id="geolocation">Finding geolocation...</p>
+	
+	<script>
+		function onDeviceReady(){
+    var map = new GoogleMap();
+    map.initialize();
+	}
+	</script> 
+	
   </body>
 </html>
