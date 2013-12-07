@@ -21,5 +21,20 @@
  <preference name="fullscreen" value="true" />
  
  <preference name="orientation" value="default" />
- 
+<gap:plugin name="org.apache.cordova.geolocation" version="0.3.2" />
+
+
+<feature name="Geolocation">
+    <param name="android-package" value="org.apache.cordova.GeoBroker" />
+</feature>
+
+
+(in app/AndroidManifest.xml)
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+
+
+
+
  </widget>

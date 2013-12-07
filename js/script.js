@@ -1,17 +1,3 @@
-
-    $ cordova plugin add org.apache.cordova.geolocation
-    $ cordova plugin ls
-    [ 'org.apache.cordova.geolocation' ]
-    $ cordova plugin rm org.apache.cordova.geolocation
- 
- 
- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
- 
- 
- 
- 
  // Code pour afficher la carte 
  
 // Wait for device API libraries to load
