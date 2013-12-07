@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+
+
+<widget xmlns = "http://www.w3.org/ns/widgets
+ 
+" xmlns:gap = "http://phonegap.com/ns/1.0
+ 
+" id = "fr.argosapp.retros" > <!-- versionCode is optional and Android only --> 
+
+<name>Retroooospective</name> 
+
+<description> A simple employee directory application </description> 
+
+<author href="http://argosapp.fr" email="ccoenraets@gmail.com"> Christophe Coenraets </author> 
+
+<feature name="Notification">
+
+
+ <param name="android-package" value="org.apache.cordova.Notification" /> </feature> 
+ 
+ <preference name="fullscreen" value="true" />
+ 
+ <preference name="orientation" value="default" />
+ 
+ </widget>
