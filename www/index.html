@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;">
         <title>My Location</title>
         <link rel="stylesheet" href="https://developers.google.com/maps/documentation/javascript/examples/default.css" type="text/css"></link>
-        
+        <script type="text/javascript" charset="utf-8" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDRU_hzB5XTYUQ5vWe1dpHffk053tR4Sg&sensor=false"> </script>
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
  
@@ -45,13 +45,47 @@
       }
       google.maps.event.addDomListener(window, 'load', initialize);
 
+	  
+	  
+	   // Code pour afficher la carte 
+ 
+// Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    }
+
+    // onSuccess Geolocation
+    //
+    function onSuccess(position) {
+        var element = document.getElementById('geolocation');
+        element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
+                            'Longitude: '          + position.coords.longitude             + '<br />' +
+                            'Altitude: '           + position.coords.altitude              + '<br />' +
+                            'Accuracy: '           + position.coords.accuracy              + '<br />' +
+                            'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
+                            'Heading: '            + position.coords.heading               + '<br />' +
+                            'Speed: '              + position.coords.speed                 + '<br />' +
+                            'Timestamp: '          + position.timestamp                    + '<br />';
+    }
+
+    // onError Callback receives a PositionError object
+    //
+    function onError(error) {
+        alert('code: '    + error.code    + '\n' +
+              'message: ' + error.message + '\n');
+    }
  
         </script>
  
     </head>
     <body>
         <div align="center">
-            <a href="#" class="btn" onclick="findMyLocation();">Find My Lation</a>
+            <a href="#" class="btn" onclick="navigator.geolocation.getCurrentPosition(onSucess, onError);">Find My Location</a>
             <p id="location"></p>
         </div>
         <div id="map_canvas"></div>
