@@ -43,7 +43,22 @@ body {
     padding:0px;
     text-transform:uppercase;
     width:100%;
+
 }
+
+        .btn{
+            border: 2px solid #222222;
+            -webkit-border-radius: 9px;
+            border-radius: 9px;
+            text-align:center;
+            display:block;
+            background:#eeeeee;
+            width:280px;
+            color:#222;
+            text-decoration:none;
+            padding:10px;
+            margin:12px;
+        }
 
 /* Portrait layout (default) */
 .app {
