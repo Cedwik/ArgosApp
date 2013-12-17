@@ -113,14 +113,3 @@ h1 {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
 }
-
-
-
-      html, #map-canvas {
-        height: 100%;
-        margin: 0px;
-        padding: 0px
-      }
-	  
-	  
-	  
