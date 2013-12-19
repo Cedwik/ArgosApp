@@ -18,8 +18,8 @@
 
     // device APIs are available
     //
-    function onDeviceReady() {
-        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+		function onDeviceReady() {
+       navigator.geolocation.getCurrentPosition(onSuccess, onError);
     }
 
     // onSuccess Geolocation
@@ -34,6 +34,8 @@
                             'Heading: '            + position.coords.heading               + '<br />' +
                             'Speed: '              + position.coords.speed                 + '<br />' +
                             'Timestamp: '          + position.timestamp                    + '<br />';
+							var latitude = position.coords.latitude;
+							var longitude = position.coords.longitude;
     }
 
     // onError Callback receives a PositionError object
@@ -47,24 +49,15 @@
 	// Mon code
 	function findMyLocation() {
             // Check the network connection
-            var networkConnection = navigator.network.connection.type;
-            if (networkConnection != null) {
+          //  var networkConnection = navigator.network.connection.type;
+            //if (networkConnection != null) {
              //   Find your location
                 navigator.geolocation.getCurrentPosition(onSuccess, onError);
-            }
-            else{
-                alert('Please check your network connection and try again.');
-            }
-        }
- 
-        function onSuccess(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-        }
- 
-        function onError(error) {
-            alert('Some error occured please try again.');
-        }
+            //}
+            //else{
+               // alert('Please check your network connection and try again.');
+          //  }
+        
          
         function getDetails(latitude, longitude) {
             var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng="+latitude+","+longitude+"&sensor=false";
@@ -102,16 +95,8 @@
             google.maps.event.trigger(map, 'resize');
         };
 	
-	
-    /*  function initialize(latitude, longitude) {
-        var mapOptions = {
-          center: new google.maps.LatLng(latitude, longitude),
-          zoom: 8
-        };
-        var map = new google.maps.Map(document.getElementById("map-canvas"),
-            mapOptions);
-      }
-      google.maps.event.addDomListener(window, 'load', initialize); */
+	};
+
 
     </script>
 
