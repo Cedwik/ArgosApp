@@ -49,14 +49,14 @@
 	// Mon code
 	function findMyLocation() {
             //Check the network connection
-            var networkConnection = navigator.network.connection.type;
-            if (networkConnection != null) {
+        //    var networkConnection = navigator.network.connection.type;
+         //   if (networkConnection != null) {
               //  Find your location
                 navigator.geolocation.getCurrentPosition(onSuccess, onError);
-            }
-            else{
-               alert('Please check your network connection and try again.');
-            }
+          //  }
+          //  else{
+         //      alert('Please check your network connection and try again.');
+         //   }
         
          
        /*function getDetails(latitude, longitude) {
@@ -93,8 +93,13 @@
             $("#map_canvas").height(mapheight);
             $("#map_canvas").width(mapwidth);
             google.maps.event.trigger(map, 'resize');
-        */};/**/
+        };/*/
 		
+		
+	
+	};
+	
+	
 		function initialize(latitude, longitude) {
         var mapOptions = {
           center: new google.maps.LatLng(latitude, longitude),
@@ -104,10 +109,6 @@
             mapOptions);
       }
       google.maps.event.addDomListener(window, 'load', initialize);
-		
-		*/
-	
-	};
 
 
     </script>
