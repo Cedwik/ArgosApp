@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />
@@ -48,54 +48,8 @@
 			
 	// Mon code
 	function findMyLocation() {
-            //Check the network connection
-        //    var networkConnection = navigator.network.connection.type;
-         //   if (networkConnection != null) {
-              //  Find your location
-                navigator.geolocation.getCurrentPosition(onSuccess, onError);
-				
-          //  }
-          //  else{
-         //      alert('Please check your network connection and try again.');
-         //   }
-        
-         
-       /*function getDetails(latitude, longitude) {
-            var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng="+latitude+","+longitude+"&sensor=false";
-            $.getJSON(url, function(data) {
-                var formatted_address = data['results'][0]['formatted_address'];
-                htmlData =  'Latitude : ' + latitude + '<br/>';
-                htmlData += 'Longitude : ' + longitude + '<br/>';
-                htmlData += 'Location : ' + formatted_address;
-                $("#location").html('<a href="#" class="btn" onclick="drawMap('+latitude+', '+longitude+');">'+htmlData+'</a>');
-            });
-        }
 
-        function drawMap(latitude, longitude) {
-            var centerLocation = new google.maps.LatLng(latitude, longitude);
- 
-            var myOptions = {
-                center: centerLocation,
-                zoom: 16,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
- 
-            map_element = document.getElementById("map-canvas");
-            map = new google.maps.Map(map_element, myOptions);
- 
-            var marker = new google.maps.Marker({
-                position: centerLocation,
-                title: "My Current Location!"
-            });
-            marker.setMap(map);
-
-            var mapwidth = $(window).width();
-            var mapheight = $(window).height();
-            $("#map_canvas").height(mapheight);
-            $("#map_canvas").width(mapwidth);
-            google.maps.event.trigger(map, 'resize');
-        };/*/
-
+                  navigator.geolocation.getCurrentPosition(onSuccess, onError);
 	
 	};
 	
@@ -119,14 +73,13 @@
             <a href="#" class="btn" onclick="findMyLocation();">Find My Location</a>
             <p id="location"></p>
         </div>
+		
+		<a href="test_geo.html" > Lien vers test geo </a>
+		
 		<p id="geolocation">Finding geolocation...</p>
 
         <div id="map-canvas"></div>
 		
         <script type="text/javascript" src="phonegap.js"></script>
-        <!--<script type="text/javascript" src="js/index.js"></script>
-		<script type="text/javascript">
-            app.initialize();
-        </script>-->
     </body>
 </html>
