@@ -9,6 +9,7 @@
 		<script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDRU_hzB5XTYUQ5vWe1dpHffk053tR4Sg&sensor=true">
     </script>
+	<script type="text/javascript" charset="utf-8" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		   <script type="text/javascript" charset="utf-8">
 
     // Wait for device API libraries to load
@@ -119,7 +120,10 @@
     </head>
     <body>
 
-		
+		<div align="center">
+            <a href="#" class="btn" onclick="findMyLocation();">Find My Location</a>
+            <p id="location"></p>
+        </div>
 		<p id="geolocation">Finding geolocation...</p>
 
         <div id="map-canvas"></div>

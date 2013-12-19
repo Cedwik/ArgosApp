@@ -75,62 +75,62 @@ var app = {
 
 	
 	// Mon code
-	// function findMyLocation() {
+	function findMyLocation() {
             // Check the network connection
-            // var networkConnection = navigator.network.connection.type;
-            // if (networkConnection != null) {
-                // Find your location
-                // navigator.geolocation.getCurrentPosition(success, error);
-            // }
-            // else{
-                // alert('Please check your network connection and try again.');
-            // }
-        // }
+            var networkConnection = navigator.network.connection.type;
+            if (networkConnection != null) {
+                Find your location
+                navigator.geolocation.getCurrentPosition(success, error);
+            }
+            else{
+                alert('Please check your network connection and try again.');
+            }
+        }
  
-        // function success(position) {
-            // var latitude = position.coords.latitude;
-            // var longitude = position.coords.longitude;
-        // }
+        function success(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+        }
  
-        // function error(error) {
-            // alert('Some error occured please try again.');
-        // }
+        function error(error) {
+            alert('Some error occured please try again.');
+        }
          
-        // function getDetails(latitude, longitude) {
-            // var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng="+latitude+","+longitude+"&sensor=false";
-            // $.getJSON(url, function(data) {
-                // var formatted_address = data['results'][0]['formatted_address'];
-                // htmlData =  'Latitude : ' + latitude + '<br/>';
-                // htmlData += 'Longitude : ' + longitude + '<br/>';
-                // htmlData += 'Location : ' + formatted_address;
-                // $("#location").html('<a href="#" class="btn" onclick="drawMap('+latitude+', '+longitude+');">'+htmlData+'</a>');
-            // });
-        // }
+        function getDetails(latitude, longitude) {
+            var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng="+latitude+","+longitude+"&sensor=false";
+            $.getJSON(url, function(data) {
+                var formatted_address = data['results'][0]['formatted_address'];
+                htmlData =  'Latitude : ' + latitude + '<br/>';
+                htmlData += 'Longitude : ' + longitude + '<br/>';
+                htmlData += 'Location : ' + formatted_address;
+                $("#location").html('<a href="#" class="btn" onclick="drawMap('+latitude+', '+longitude+');">'+htmlData+'</a>');
+            });
+        }
  
-        // function drawMap(latitude, longitude) {
-            // var centerLocation = new google.maps.LatLng(latitude, longitude);
+        function drawMap(latitude, longitude) {
+            var centerLocation = new google.maps.LatLng(latitude, longitude);
  
-            // var myOptions = {
-                // center: centerLocation,
-                // zoom: 16,
-                // mapTypeId: google.maps.MapTypeId.ROADMAP
-            // };
+            var myOptions = {
+                center: centerLocation,
+                zoom: 16,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
  
-            // map_element = document.getElementById("map_canvas");
-            // map = new google.maps.Map(map_element, myOptions);
+            map_element = document.getElementById("map_canvas");
+            map = new google.maps.Map(map_element, myOptions);
  
-            // var marker = new google.maps.Marker({
-                // position: centerLocation,
-                // title: "My Current Location!"
-            // });
-            // marker.setMap(map);
+            var marker = new google.maps.Marker({
+                position: centerLocation,
+                title: "My Current Location!"
+            });
+            marker.setMap(map);
  
-            // var mapwidth = $(window).width();
-            // var mapheight = $(window).height();
-            // $("#map_canvas").height(mapheight);
-            // $("#map_canvas").width(mapwidth);
-            // google.maps.event.trigger(map, 'resize');
-        // }
+            var mapwidth = $(window).width();
+            var mapheight = $(window).height();
+            $("#map_canvas").height(mapheight);
+            $("#map_canvas").width(mapwidth);
+            google.maps.event.trigger(map, 'resize');
+        }
  
 
 	
