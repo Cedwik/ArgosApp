@@ -95,7 +95,7 @@
             google.maps.event.trigger(map, 'resize');
         */};/**/
 		
-		function initialize() {
+		function initialize(latitude, longitude) {
         var mapOptions = {
           center: new google.maps.LatLng(latitude, longitude),
           zoom: 8
