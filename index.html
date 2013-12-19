@@ -48,15 +48,15 @@
 			
 	// Mon code
 	function findMyLocation() {
-            // Check the network connection
-          //  var networkConnection = navigator.network.connection.type;
-            //if (networkConnection != null) {
-             //   Find your location
+            //Check the network connection
+            var networkConnection = navigator.network.connection.type;
+            if (networkConnection != null) {
+              //  Find your location
                 navigator.geolocation.getCurrentPosition(onSuccess, onError);
-            //}
-            //else{
-               // alert('Please check your network connection and try again.');
-          //  }
+            }
+            else{
+               alert('Please check your network connection and try again.');
+            }
         
          
         /*function getDetails(latitude, longitude) {
