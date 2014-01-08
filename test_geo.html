@@ -85,8 +85,7 @@ function initialize() {
   // Try HTML5 geolocation
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = new google.maps.LatLng(position.coords.latitude,
-                                       position.coords.longitude);
+      var pos = new google.maps.LatLng(50,60);
 
       var infowindow = new google.maps.InfoWindow({
         map: map,
@@ -113,7 +112,7 @@ function handleNoGeolocation(errorFlag) {
 
   var options = {
     map: map,
-    position: new google.maps.LatLng(60, 105),
+    position: new google.maps.LatLng(50, 105),
     content: content
   };
 
@@ -123,20 +122,33 @@ function handleNoGeolocation(errorFlag) {
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
+function findMyLocation() {
+	    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = new google.maps.LatLng(position.coords.latitude,
+                                       position.coords.longitude);
+
+      var infowindow = new google.maps.InfoWindow({
+        map: map,
+        position: pos,
+        content: 'Vous êtes ici'
+      });
+
+      map.setCenter(pos);
+	});
+
+};
 
     </script>
 
     </head>
     <body>
 	<h1>test geo</h1>
-	<a href="index.html" >Lien vers index</a>
+
 		<div align="center">
             <a href="#" class="btn" onclick="findMyLocation();">Find My Location</a>
             <p id="location"></p>
         </div>
-		
-		<a href="test_geo.html" > Lien vers test geo </a>
-		
+			<a href="index.html" >Lien vers index</a>
 		<p id="geolocation">Finding geolocation...</p>
 
         <div id="map-canvas"></div>

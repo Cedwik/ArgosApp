@@ -49,7 +49,7 @@ body {
             margin:12px;
         }
 		
-		.btn:active {
+		.btn:active, .btn:hover {
 			background : black;
 		
 		}
