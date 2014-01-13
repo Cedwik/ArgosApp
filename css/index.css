@@ -49,8 +49,9 @@ body {
             margin:12px;
         }
 		
-		.btn:target, .btn:hover {
+		.btn:hover {
 			background : black;
+			color : white;
 		
 		}
 
