@@ -19,7 +19,7 @@ var mapOptions = {zoom: 13};
 map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
 	 //On place les marqueurs ici 
-	var LatLngMarker = new google.maps.LatLng(48.8530411, 2.3388442);
+	var LatLngMarker = new google.maps.LatLng(48.8552205,  2.3331135);
 	
 	var marker = new google.maps.Marker({
 		position: LatLngMarker,
@@ -115,9 +115,14 @@ function findMyLocation() {
 			};
 			
 			function onSuccess(position) {
-				    var position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+					var position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 					alert('ça marche !'); 
 					map.setCenter(position);
+					      var infowindow = new google.maps.InfoWindow({
+							map: map,
+							position: position,
+							content: 'Vous êtes ici'
+						  });
 			};
 			
 			function onError(error) {
@@ -131,7 +136,7 @@ function findMyLocation() {
             watchID = null;
 			alert('NSA : "ok pardon on arrete :(" ');
         } else {
-			alert('Pour désactiver le WatchPosition, faudrait peut être l activer avant');
+			alert('Pour désactiver le WatchPosition, faudrait peut être l activer avant...');
 		};
 	};
 
