@@ -109,10 +109,10 @@ function findMyLocation() {
 
 
 // ICI LA FONCTION POUR ACTUALISER LA POSITION REGULIEREMENT
-function watchPosition () {
-		var options = { timeout: 10000, enableHighAccuracy: true };
-        watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
-};
+			function watchPosition () {
+				var options = { timeout: 10000, enableHighAccuracy: true };
+				watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+			};
 			
 			function onSuccess(position) {
 				    var position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -129,9 +129,11 @@ function watchPosition () {
         if (watchID != null) {
             navigator.geolocation.clearWatch(watchID);
             watchID = null;
-			alert('NSA : ok pardon on arrete :( ');
-        };
-    };
+			alert('NSA : "ok pardon on arrete :(" ');
+        } else {
+			alert('Pour désactiver le WatchPosition, faudrait peut être l activer avant');
+		};
+	};
 
 
 
@@ -150,7 +152,7 @@ function watchPosition () {
 		
 		
 		<a href="#" class="btn" onclick="watchPosition();">Activer la géolocalisation automatique </a>
-		<a href="#" class="btn" onclick="ClearWatch();">Désactiver la géolocalisation automatique </a>
+		<a href="#" class="btn" onclick="clearWatch();">Désactiver la géolocalisation automatique </a>
 		
 
         <div id="map-canvas"></div>
