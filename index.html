@@ -118,7 +118,7 @@ function WatchThePosition () {
 };
 			
 			function onSuccess(position) {
-					//var positionWatch = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+					var positionWatch = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 					alert('ça marche !'); 
 					map.setCenter(positionWatch);
 					      var infowindow = new google.maps.InfoWindow({
