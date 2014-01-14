@@ -115,12 +115,12 @@ function findMyLocation() {
 			};
 			
 			function onSuccess(position) {
-					var position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+					var positionWatch = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 					alert('ça marche !'); 
-					map.setCenter(position);
+					map.setCenter(positionWatch);
 					      var infowindow = new google.maps.InfoWindow({
 							map: map,
-							position: position,
+							position: positionWatch,
 							content: 'Vous êtes ici'
 						  });
 			};
