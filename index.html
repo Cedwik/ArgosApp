@@ -52,8 +52,10 @@ map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
   } else {
     // Browser doesn't support Geolocation
     handleNoGeolocation(false);
-  }
-}
+	};
+  
+  
+};
 
 //Affiche l'erreur, et affiche une page avec une coordonnée fixe 
 function handleNoGeolocation(errorFlag) {
