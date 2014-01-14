@@ -111,10 +111,10 @@ function findMyLocation() {
 
 
 // ICI LA FONCTION POUR ACTUALISER LA POSITION REGULIEREMENT
-			function WatchThePosition () {
-				var options = { timeout: 10000};
-				watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
-			};
+function WatchThePosition () {
+		var options = { timeout: 10000, enableHighAccuracy: true };
+        watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+};
 			
 			function onSuccess(position) {
 					var positionWatch = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -143,7 +143,6 @@ function findMyLocation() {
 	};
 
 
-
     </script>
 
     </head>
@@ -156,7 +155,6 @@ function findMyLocation() {
         </div>
 			<a href="index.html" >Lien vers index</a>
 		<p id="geolocation">Finding geolocation...</p>
-		
 		
 		<a href="#" class="btn" onclick="WatchThePosition();">Activer la géolocalisation automatique </a>
 		<a href="#" class="btn" onclick="clearWatch();">Désactiver la géolocalisation automatique </a>
