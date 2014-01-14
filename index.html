@@ -29,33 +29,34 @@ map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 	  
 	  
   // Try HTML5 geolocation
-  if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-	
-	//On entre les coordonnées du centre de la carte dans une variable
-      var pos = new google.maps.LatLng(48.8530411, 2.3388442);
-	
-	//On crée une petite infobulle pour montrer précisément l'endroit ou on est
-      var infowindow = new google.maps.InfoWindow({
-        map: map,
-        position: pos,
-        content: 'Vous êtes ici'
-      });
-	
-	//Puis on centre sur le point
-      map.setCenter(pos);
-	  
-	  //on appelle les fonctions qui préviennent que la géolocalisation marche ou pas (si ça marche elle n'affiche rien) 
-    }, function() {
-      handleNoGeolocation(true);
-    });
-  } else {
-    // Browser doesn't support Geolocation
-    handleNoGeolocation(false);
+	if(navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(position) {
+		
+		//On entre les coordonnées du centre de la carte dans une variable
+		  var pos = new google.maps.LatLng(48.8530411, 2.3388442);
+		
+		//On crée une petite infobulle pour montrer précisément l'endroit ou on est
+		  var infowindow = new google.maps.InfoWindow({
+			map: map,
+			position: pos,
+			content: 'Vous êtes ici'
+		  });
+		
+		//Puis on centre sur le point
+		  map.setCenter(pos);
+		  
+		  //on appelle les fonctions qui préviennent que la géolocalisation marche ou pas (si ça marche elle n'affiche rien) 
+		}, function() {
+		  handleNoGeolocation(true);
+		});
+	  }   else {
+		// Browser doesn't support Geolocation
+		handleNoGeolocation(false);
+		};
+
 	};
   
-  
-};
+
 
 //Affiche l'erreur, et affiche une page avec une coordonnée fixe 
 function handleNoGeolocation(errorFlag) {
@@ -117,7 +118,7 @@ function WatchThePosition () {
 };
 			
 			function onSuccess(position) {
-					var positionWatch = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+					//var positionWatch = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 					alert('ça marche !'); 
 					map.setCenter(positionWatch);
 					      var infowindow = new google.maps.InfoWindow({
