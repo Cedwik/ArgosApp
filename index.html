@@ -113,8 +113,11 @@ function findMyLocation() {
 
 
 // ICI LA FONCTION POUR ACTUALISER LA POSITION REGULIEREMENT
-function WatchPosition () {
-		var options = { timeout: 10000, enableHighAccuracy: true };
+function Watch () {
+		var options = { 
+			timeout: 10000, 
+			enableHighAccuracy: true 
+		};
         watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
 };
 			
@@ -163,7 +166,7 @@ function WatchPosition () {
 		
 
         <script type="text/javascript" src="phonegap.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+
 
     </body>
 </html>
