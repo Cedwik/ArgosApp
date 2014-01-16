@@ -49,7 +49,11 @@ body {
             margin:12px;
         }
 		
+<<<<<<< HEAD
 		.btn:hover {
+=======
+		.btn:active, .btn:hover {
+>>>>>>> parent of 84be087... Ajout de ClearWatch
 			background : black;
 			color : white;
 		
