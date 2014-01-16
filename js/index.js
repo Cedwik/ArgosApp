@@ -100,7 +100,7 @@ function findMyLocation() {
 
 
 // ICI LA FONCTION POUR ACTUALISER LA POSITION REGULIEREMENT
-function WatchThePosition () {
+function WatchPosition () {
 		var options = { timeout: 10000, enableHighAccuracy: true };
         watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
 };
