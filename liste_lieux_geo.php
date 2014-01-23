@@ -13,7 +13,7 @@ $selectInfoLieu = "SELECT*FROM retro_lieu WHERE latitude != 0 " ;
 
 $requeteInfo = mysql_query($selectInfoLieu, $con);
 
-echo "<table border= solid 1px green>";
+/*echo "<table border= solid 1px green>";
 	
 	while($row=mysql_fetch_array($requeteInfo)) {
 
@@ -29,7 +29,7 @@ echo "<table border= solid 1px green>";
 		echo "</tr>";
 
 	}
-	echo "</table>";
+	echo "</table>";*/
 	
 	$markers = array();
 	

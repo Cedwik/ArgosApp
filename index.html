@@ -31,9 +31,7 @@ function initialize() {
 			success: function(data) {
     
 				$.each(data, function(i,item){
-					lieu.append('<p
 					var LatLngMarker = new google.maps.LatLng(item.latitude, item.longitude);
-	
 					var marker = new google.maps.Marker({
 						position: LatLngMarker,
 						map: map,
