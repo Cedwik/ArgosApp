@@ -5,37 +5,67 @@
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hey you</title>
+        <title>Test - Geolocalisation</title>
 		<script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDRU_hzB5XTYUQ5vWe1dpHffk053tR4Sg&sensor=false">
     </script>
 	<script type="text/javascript" charset="utf-8" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript">
 
-
+		
+//variables pour initialiser la carte et le watchID (qui sert pour la géolocalisation en temps réel)
 var map;
 var watchID = null;
 
-
+// fonction initialize qui s'active dès le chargement de la page : affiche la carte, centrée sur la position du mobile, 
 function initialize() {
-	var mapOptions = {zoom: 13};
+
+
+		var markers = $('#markers');
+		
+		$.ajax({
+			type: 'GET',
+			url: 'http://www.argosapps.fr/test_markers/liste_lieux_geo.php?&jsoncallback=?', //jsoncallback très important sinon requête ne va pas marcher
+			dataType: 'JSONp',
+			timeout: 8000,
+			success: function(data) {
+    
+				$.each(data, function(i,item){
+					lieu.append('<p
+					var LatLngMarker = new google.maps.LatLng(item.latitude, item.longitude);
+	
+					var marker = new google.maps.Marker({
+						position: LatLngMarker,
+						map: map,
+						title: item.nom_lieu
+					});	
+
+				});
+			},
+			error: function(data) {
+				markers.append('<li>There was an error loading the markers');
+				alert('Buuuug');
+			}
+		});
+
+
+
+
+	var mapOptions = {zoom: 13}; //
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
 	 //On place les marqueurs ici 
-	var LatLngMarker = new google.maps.LatLng(48.8552205,  2.3331135);
+	 
+	 // google.maps.LatLng est une variable qui contient deux coordonnées latitude et longitude. On va l'utiliser a chaque fois afin que la position soit utilisable dans les fonctions de l'API maps 
 	
-	var marker = new google.maps.Marker({
-		position: LatLngMarker,
-		map: map,
-		title:"Le Procope"
-	});
+
 	  
 	  
   // Try HTML5 geolocation
 	if(navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function(position) {
 		
-		//On entre les coordonnées du centre de la carte dans une variable
+		//On entre les coordonnées du centre de la carte dans une variable (ici ce sont des coordonnées aléatoires pour voir si la position s'actualise bien quand on appuie sur les boutons) 
 		  var pos = new google.maps.LatLng(48.51181, 2.20324);
 		
 		//On crée une petite infobulle pour montrer précisément l'endroit ou on est
@@ -49,7 +79,7 @@ function initialize() {
 		  map.setCenter(pos);
 		  
 		  //on appelle les fonctions qui préviennent que la géolocalisation marche ou pas (si ça marche elle n'affiche rien) 
-		}, function() {
+		}, function() { //si ça marche, la fonction envoie la valeur true 
 		  handleNoGeolocation(true);
 		});
 	  }   else {
@@ -57,7 +87,7 @@ function initialize() {
 		handleNoGeolocation(false);
 		};
 
-	};
+};
   
 
 
@@ -81,8 +111,6 @@ function handleNoGeolocation(errorFlag) {
   map.setCenter(options.position);
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);
-
 
 //la fonction pour récupérer notre position actuelle et recentrer la carte 
 function findMyLocation() {
@@ -99,6 +127,7 @@ function findMyLocation() {
 								'Heading: '            + position.coords.heading               + '<br />' +
 								'Speed: '              + position.coords.speed                 + '<br />' +
 								'Timestamp: '          + position.timestamp                    + '<br />';
+								
 			//change l'infobulle pour la centrer sur notre position
 			var infowindow = new google.maps.InfoWindow({
 				map: map,
@@ -114,19 +143,21 @@ function findMyLocation() {
 
 
 
-// ICI LA FONCTION POUR ACTUALISER LA POSITION REGULIEREMENT
+// Watch : fonction pour activer la géolocalisation en temps réel 
 function Watch () {
-		var options = { 
+		
+		var options = { //on définit les options de la fonction watchID, timeout : le temps avant que la position ne se rafraichisse (pas sur)  enableHighAccuracy : activer la géolocalisation précise 
 			timeout: 10000,
 			enableHighAccuracy : true
 		};
         watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
 };
 			
-			function onSuccess(position) {
+			
+			function onSuccess(position) { //si la récupération des coordonnées marche, on appelle cette fonction 
 					var positionWatch = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 					alert('ça marche !'); 
-					
+					// les 10 lignes ci dessus permettent d'afficher les coordonnées récupérées en texte 
 					var element = document.getElementById('geolocation');
 					element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
 								'Longitude: '          + position.coords.longitude             + '<br />' +
@@ -145,27 +176,28 @@ function Watch () {
 						  });
 			};
 			
+			//fonction appellée si la récupération de coordonnées ne marche pas. c'est facultatif et ne sert surtout que pour le developpement 
 			function onError(error) {
 				alert('code: '    + error.code    + '\n message: ' + error.message + '\n');
 			};
 
-
+	//la fonction clearWatch désactive la géolocalisation en temps réel, si elle n'est pas activée quand on veut la désactiver un message s'affiche pour dire que la fonction n'est pas activée 
 	 function clearWatch() {
         if (watchID != null) {
             navigator.geolocation.clearWatch(watchID);
             watchID = null;
 			alert('NSA : "ok pardon on arrete :(" ');
         } else {
-			alert('Pour désactiver le WatchPosition, faudrait peut être l activer avant...');
+			alert('Pour désactiver le watchID, faut l\'activer !');
 		};
 	};						
 
-      google.maps.event.addDomListener(window, 'load', initialize);
+// Voici l'écouteur qui va, une fois la page chargée, appeller la fonction initialize ci dessus 
+google.maps.event.addDomListener(window, 'load', initialize);
 	  
 	  </script>
     </head>
-    <body>
-
+    <body>	
 
 		<h1>Index </h1>
 
@@ -176,7 +208,7 @@ function Watch () {
 		
 		<a href="test_geo.html"> Aller vers test Geo</a>
 		<p id="geolocation">Finding geolocation...</p>
-
+		
 		
 		<a href="#" class="btn" onclick="Watch();">Activer la géolocalisation automatique </a>
 		<a href="#" class="btn" onclick="clearWatch();">Désactiver la géolocalisation automatique </a>
