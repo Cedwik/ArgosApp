@@ -7,7 +7,7 @@
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>Test - Geolocalisation</title>
 		<script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDRU_hzB5XTYUQ5vWe1dpHffk053tR4Sg&sensor=false">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDRU_hzB5XTYUQ5vWe1dpHffk053tR4Sg&sensor=true">
     </script>
 	<script type="text/javascript" charset="utf-8" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript">
@@ -19,9 +19,6 @@ var watchID = null;
 
 // fonction initialize qui s'active dès le chargement de la page : affiche la carte, centrée sur la position du mobile, 
 function initialize() {
-
-
-		var markers = $('#markers');
 		
 		$.ajax({
 			type: 'GET',
@@ -29,22 +26,31 @@ function initialize() {
 			dataType: 'JSONp',
 			timeout: 8000,
 			success: function(data) {
-    
+				
 				$.each(data, function(i,item){
 					var LatLngMarker = new google.maps.LatLng(item.latitude, item.longitude);
 					var marker = new google.maps.Marker({
 						position: LatLngMarker,
-						map: map,
-						title: item.nom_lieu
-					});	
+						map: map,	
+						title : item.nom_lieu
+
+					});
+					google.maps.event.addListener(marker, "click", function (e) { iw.open(map, marker); });
+				     var iw = new google.maps.InfoWindow({
+						content : marker.title,
+						width : 200
+					});
 
 				});
 			},
 			error: function(data) {
-				markers.append('<li>There was an error loading the markers');
 				alert('Buuuug');
 			}
 		});
+		
+		
+
+
 
 
 
@@ -64,7 +70,7 @@ function initialize() {
 		navigator.geolocation.getCurrentPosition(function(position) {
 		
 		//On entre les coordonnées du centre de la carte dans une variable (ici ce sont des coordonnées aléatoires pour voir si la position s'actualise bien quand on appuie sur les boutons) 
-		  var pos = new google.maps.LatLng(48.51181, 2.20324);
+		  var pos = new google.maps.LatLng(48.8808876, 2.3405177);
 		
 		//On crée une petite infobulle pour montrer précisément l'endroit ou on est
 		  var infowindow = new google.maps.InfoWindow({
@@ -84,6 +90,8 @@ function initialize() {
 		// Browser doesn't support Geolocation
 		handleNoGeolocation(false);
 		};
+		
+		
 
 };
   
@@ -130,7 +138,7 @@ function findMyLocation() {
 			var infowindow = new google.maps.InfoWindow({
 				map: map,
 				position: pos,
-				content: 'Vous êtes ici'
+				content: 'Vous êtes ici mouahahaha'
 			});
 			map.setCenter(pos);
 			
@@ -188,10 +196,40 @@ function Watch () {
         } else {
 			alert('Pour désactiver le watchID, faut l\'activer !');
 		};
-	};						
+	};	
+
 
 // Voici l'écouteur qui va, une fois la page chargée, appeller la fonction initialize ci dessus 
 google.maps.event.addDomListener(window, 'load', initialize);
+
+/*
+  for (var i = 0; i < 5; i++) {
+    var location = new google.maps.LatLng(southWest.lat() + latSpan * Math.random(),
+        southWest.lng() + lngSpan * Math.random());
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map
+    });
+    var j = i + 1;
+    marker.setTitle(j.toString());
+    attachSecretMessage(marker, i);
+  }
+}
+
+// The five markers show a secret message when clicked
+// but that message is not within the marker's instance data.
+function attachSecretMessage(marker, number) {
+  var message = ["This","is","the","secret","message"];
+  var infowindow = new google.maps.InfoWindow(
+      { content: message[number],
+        size: new google.maps.Size(50,50)
+      });
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.open(map,marker);
+  });
+}
+*/
+
 	  
 	  </script>
     </head>
@@ -216,6 +254,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 		
 
         <script type="text/javascript" src="phonegap.js"></script>
+
         <!--<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript">
             app.initialize();
