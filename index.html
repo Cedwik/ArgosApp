@@ -20,9 +20,35 @@ var watchID = null;
 // fonction initialize qui s'active dès le chargement de la page : affiche la carte, centrée sur la position du mobile, 
 function initialize() {
 		
+		
+		
+		$.ajax({
+			type: 'GET',
+			url: 'http://www.argosapps.fr/test_markers/liste_lieux_geo.php?&jsoncallback=?', //jsoncallback très important sinon requête ne va pas marcher
+			dataType: 'JSONp',
+			timeout: 8000,
+			success: function(data) {
+				
+				$.each(data, function(i,item){
+				$('#markers').append('<p> Lieu : ' + item.nom_lieu + ' Latitude : ' + item.latitude + ' longitude : ' + item.longitude + '</p>');
+					var LatLngMarker = new google.maps.LatLng(item.latitude, item.longitude);
+					var marker = new google.maps.Marker({
+						position: LatLngMarker,
+						map: map,	
+						title : item.nom_lieu
 
-		
-		
+					});
+					google.maps.event.addListener(marker, "click", function (e) { iw.open(map, marker); });
+				     var iw = new google.maps.InfoWindow({
+						content : marker.title
+					});
+					
+				});
+			},
+			error: function(data) {
+				alert('Buuuug');
+			}
+		});
 
 
 
@@ -219,6 +245,7 @@ function attachSecretMessage(marker, number) {
 		<a href="test_geo.html"> Aller vers test Geo</a>
 		<p id="geolocation">Finding geolocation...</p>
 		
+		<div id="markers"></div>
 		
 		<a href="#" class="btn" onclick="Watch();">Activer la géolocalisation automatique </a>
 		<a href="#" class="btn" onclick="clearWatch();">Désactiver la géolocalisation automatique </a>
