@@ -16,6 +16,41 @@
 //variables pour initialiser la carte et le watchID (qui sert pour la géolocalisation en temps réel)
 var map;
 var watchID = null;
+		
+		
+	function centerPos(controlDiv, map) {
+
+		  // Set CSS styles for the DIV containing the control
+		  // Setting padding to 5 px will offset the control
+		  // from the edge of the map
+		  controlDiv.style.padding = '5px';
+
+		  // Set CSS for the control border
+		  var controlUI = document.createElement('div');
+		  controlUI.style.backgroundColor = 'white';
+		  controlUI.style.borderStyle = 'solid';
+		  controlUI.style.borderWidth = '2px';
+		  controlUI.style.cursor = 'pointer';
+		  controlUI.style.textAlign = 'center';
+		  controlUI.title = 'Click to set the map to Home';
+		  controlDiv.appendChild(controlUI);
+
+		  // Set CSS for the control interior
+		  var controlText = document.createElement('div');
+		  controlText.style.fontFamily = 'Arial,sans-serif';
+		  controlText.style.fontSize = '12px';
+		  controlText.style.paddingLeft = '4px';
+		  controlText.style.paddingRight = '4px';
+		  controlText.innerHTML = '<b>Centrer</b>';
+		  controlUI.appendChild(controlText);
+
+		  // Setup the click event listeners: simply set the map to
+		  // Chicago
+		  google.maps.event.addDomListener(controlUI, 'click', function() {
+			findMyLocation();
+		  });
+
+	}
 
 // fonction initialize qui s'active dès le chargement de la page : affiche la carte, centrée sur la position du mobile, 
 function initialize() {
@@ -34,21 +69,14 @@ function initialize() {
 					var LatLngMarker = new google.maps.LatLng(item.latitude, item.longitude);
 					var marker = new google.maps.Marker({
 						position: LatLngMarker,
-						map: map,	
+						map: map,
 						title : item.nom_lieu
-
 					});
-					
-					function closeIw(iw) {
-						if(iw) {
-							iw.close();
-						}
-						
-					}
 					
 					google.maps.event.addListener(marker, "click",  function (e) {												
 						//closeIw(iw);
 						//if (iw) {iw.setMap(null)};
+						iw.close();
 						var iw = new google.maps.InfoWindow({
 							content : '<div class="iwContent"><a href=" ' + marker.title +'.html">' + marker.title + '</a> </div>',
 							maxWidth : 800
@@ -67,11 +95,21 @@ function initialize() {
 
 
 
+
 google.maps.visualRefresh = true;
 	
 	var mapOptions = {zoom: 13, mapTypeId: google.maps.MapTypeId.TERRAIN}; //
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  
+  var posControlDiv = document.createElement('div');
+  var posControl = new centerPos(posControlDiv, map);
 
+  posControlDiv.index = 1;
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(posControlDiv);
+
+	
+	
+	
 	 //On place les marqueurs ici 
 	 
 	 // google.maps.LatLng est une variable qui contient deux coordonnées latitude et longitude. On va l'utiliser a chaque fois afin que la position soit utilisable dans les fonctions de l'API maps 
