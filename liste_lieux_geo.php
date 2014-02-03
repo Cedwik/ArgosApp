@@ -8,7 +8,7 @@ $database = "argosappsql";
 $con = mysql_connect($server, $username, $password) or die ("Could not connect: " . mysql_error());
 
 mysql_select_db($database, $con);
-
+	mysql_query("SET NAMES UTF8");
 $selectInfoLieu = "SELECT*FROM retro_lieu WHERE latitude != 0 " ;
 
 $requeteInfo = mysql_query($selectInfoLieu, $con);
@@ -30,7 +30,7 @@ $requeteInfo = mysql_query($selectInfoLieu, $con);
 
 	}
 	echo "</table>";*/
-	
+
 	$markers = array();
 	
 	while($row = mysql_fetch_assoc($requeteInfo)) {

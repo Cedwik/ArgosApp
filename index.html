@@ -9,7 +9,7 @@
 		<script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDRU_hzB5XTYUQ5vWe1dpHffk053tR4Sg&sensor=true">
     </script>
-	<script type="text/javascript" charset="utf-8" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/jquery-1.10.1.min.js"></script>
 	<script type="text/javascript">
 
 		
@@ -21,7 +21,7 @@ var watchID = null;
 function initialize() {
 		
 		
-		
+		// Bout de code ajax qui va afficher les marqueurs et les rendre clicables
 		$.ajax({
 			type: 'GET',
 			url: 'http://www.argosapps.fr/test_markers/liste_lieux_geo.php?&jsoncallback=?', //jsoncallback très important sinon requête ne va pas marcher
@@ -38,9 +38,22 @@ function initialize() {
 						title : item.nom_lieu
 
 					});
-					google.maps.event.addListener(marker, "click", function (e) { iw.open(map, marker); });
-				     var iw = new google.maps.InfoWindow({
-						content : marker.title
+					
+					function closeIw(iw) {
+						if(iw) {
+							iw.close();
+						}
+						
+					}
+					
+					google.maps.event.addListener(marker, "click",  function (e) {												
+						//closeIw(iw);
+						//if (iw) {iw.setMap(null)};
+						var iw = new google.maps.InfoWindow({
+							content : '<div class="iwContent"><a href=" ' + marker.title +'.html">' + marker.title + '</a> </div>',
+							maxWidth : 800
+						});					
+						iw.open(map, marker); 
 					});
 					
 				});
@@ -54,8 +67,9 @@ function initialize() {
 
 
 
-
-	var mapOptions = {zoom: 13}; //
+google.maps.visualRefresh = true;
+	
+	var mapOptions = {zoom: 13, mapTypeId: google.maps.MapTypeId.TERRAIN}; //
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
 	 //On place les marqueurs ici 
