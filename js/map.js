@@ -1,28 +1,41 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Test - Geolocalisation</title>
-		<script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDRU_hzB5XTYUQ5vWe1dpHffk053tR4Sg&sensor=true">
-    </script>
-		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script> 
-	<script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.4.0.min"></script>
-	
-	<script type="text/javascript" src="js/ap"> </script>	
-	
-	<script type="text/javascript">
-
-		
-//variables pour initialiser la carte et le watchID (qui sert pour la géolocalisation en temps réel)
+﻿//variables pour initialiser la carte et le watchID (qui sert pour la géolocalisation en temps réel)
 var map;
 var watchID = null;
 		
 		
+	function centerPos(controlDiv, map) {
 
+		  // Set CSS styles for the DIV containing the control
+		  // Setting padding to 5 px will offset the control
+		  // from the edge of the map
+		  controlDiv.style.padding = '5px';
+
+		  // Set CSS for the control border
+		  var controlUI = document.createElement('div');
+		  controlUI.style.backgroundColor = 'white';
+		  controlUI.style.borderStyle = 'solid';
+		  controlUI.style.borderWidth = '6px';
+		  controlUI.style.cursor = 'pointer';
+		  controlUI.style.textAlign = 'center';
+		  controlUI.title = 'Click to set the map to Home';
+		  controlDiv.appendChild(controlUI);
+
+		  // Set CSS for the control interior
+		  var controlText = document.createElement('div');
+		  controlText.style.fontFamily = 'Arial,sans-serif';
+		  controlText.style.fontSize = '12px';
+		  controlText.style.paddingLeft = '4px';
+		  controlText.style.paddingRight = '4px';
+		  controlText.innerHTML = '<b>Centrer</b>';
+		  controlUI.appendChild(controlText);
+
+		  // Setup the click event listeners: simply set the map to
+		  // Chicago
+		  google.maps.event.addDomListener(controlUI, 'click', function() {
+			findMyLocation();
+		  });
+
+	}
 
 // fonction initialize qui s'active dès le chargement de la page : affiche la carte, centrée sur la position du mobile, 
 function initialize() {
@@ -63,47 +76,10 @@ function initialize() {
 			}
 		});
 
-/*
-	function centerPos(controlDiv, map) {
-
-		  // Set CSS styles for the DIV containing the control
-		  // Setting padding to 5 px will offset the control
-		  // from the edge of the map
-		  controlDiv.style.padding = '5px';
-
-		  // Set CSS for the control border
-		  var controlUI = document.createElement('div');
-		  controlUI.style.backgroundColor = 'white';
-		  controlUI.style.borderStyle = 'solid';
-		  controlUI.style.borderWidth = '6px';
-		  controlUI.style.cursor = 'pointer';
-		  controlUI.style.textAlign = 'center';
-		  controlUI.title = 'Click to set the map to Home';
-		  controlDiv.appendChild(controlUI);
-
-		  // Set CSS for the control interior
-		  var controlText = document.createElement('div');
-		  controlText.style.fontFamily = 'Arial,sans-serif';
-		  controlText.style.fontSize = '12px';
-		  controlText.style.paddingLeft = '4px';
-		  controlText.style.paddingRight = '4px';
-		  controlText.innerHTML = '<b>Centrer</b>';
-		  controlUI.appendChild(controlText);
-
-		  // Setup the click event listeners: simply set the map to
-		  // Chicago
-		  google.maps.event.addDomListener(controlUI, 'click', function() {
-			findMyLocation();
-		  });
-
-	};
 
 
-  var posControlDiv = document.createElement('div');
-  var posControl = new centerPos(posControlDiv, map);
 
-  posControlDiv.index = 1;
-  map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(posControlDiv);*/
+
 
 google.maps.visualRefresh = true;
 	
@@ -111,6 +87,11 @@ google.maps.visualRefresh = true;
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
   
 
+  var posControlDiv = document.createElement('div');
+  var posControl = new centerPos(posControlDiv, map);
+
+  posControlDiv.index = 1;
+  map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(posControlDiv);
 	
 	
 	
@@ -171,7 +152,7 @@ function handleNoGeolocation(errorFlag) {
 
   var infowindow = new google.maps.InfoWindow(options);
   map.setCenter(options.position);
-};
+}
 
 
 //la fonction pour récupérer notre position actuelle et recentrer la carte 
@@ -194,7 +175,7 @@ function findMyLocation() {
 			var infowindow = new google.maps.InfoWindow({
 				map: map,
 				position: pos,
-				content: 'Vous êtes ici'
+				content: 'Vous êtes ici mouahahaha'
 			});
 			map.setCenter(pos);
 			
@@ -257,66 +238,3 @@ function Watch () {
 
 // Voici l'écouteur qui va, une fois la page chargée, appeller la fonction initialize ci dessus 
 google.maps.event.addDomListener(window, 'load', initialize);
-
-
-/*
-  for (var i = 0; i < 5; i++) {
-    var location = new google.maps.LatLng(southWest.lat() + latSpan * Math.random(),
-        southWest.lng() + lngSpan * Math.random());
-    var marker = new google.maps.Marker({
-        position: location,
-        map: map
-    });
-    var j = i + 1;
-    marker.setTitle(j.toString());
-    attachSecretMessage(marker, i);
-  }
-}
-
-// The five markers show a secret message when clicked
-// but that message is not within the marker's instance data.
-function attachSecretMessage(marker, number) {
-  var message = ["This","is","the","secret","message"];
-  var infowindow = new google.maps.InfoWindow(
-      { content: message[number],
-        size: new google.maps.Size(50,50)
-      });
-  google.maps.event.addListener(marker, 'click', function() {
-    infowindow.open(map,marker);
-  });
-}
-*/
-
-	  
-	  </script>
-    </head>
-    <body>	
-
-		<h1>Index </h1>
-
-		<div align="center">
-            <a href="#" class="btn" onclick="findMyLocation();">Find My Location</a>
-            <p id="location"></p>
-        </div>
-		
-		<a href="test_geo.html"> Aller vers test Geo</a>
-		<p id="geolocation">Finding geolocation...</p>
-		
-		<div id="markers"></div>
-		
-		<a href="#" class="btn" onclick="Watch();">Activer la géolocalisation automatique </a>
-		<a href="#" class="btn" onclick="clearWatch();">Désactiver la géolocalisation automatique </a>
-
-
-        <div id="map-canvas"></div>        
-		
-
-        <script type="text/javascript" src="phonegap.js"></script>
-
-        <!--<script type="text/javascript" src="js/index.js"></script>
-		<script type="text/javascript">
-            app.initialize();
-        </script>-->
-
-    </body>
-</html>

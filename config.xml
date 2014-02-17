@@ -25,7 +25,7 @@ permission on your app, which PhoneGap requires.
 <preference name="permissions"                value="none"/>
 
     <!-- Customize your app and platform with the preference element. -->
-    <preference name="phonegap-version" value="3.0.0" /> <!-- all: current version of PhoneGap -->
+    <preference name="phonegap-version" value="2.9.0" /> <!-- all: current version of PhoneGap -->
 
     <!-- Plugins -->
 
