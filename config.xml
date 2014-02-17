@@ -32,11 +32,10 @@ permission on your app, which PhoneGap requires.
     <!-- Core plugins -->
 <plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 <plugin name="Globalization" value="org.apache.cordova.Globalization" />
-<plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
-<plugin name="SplashScreen" value="CDVSplashScreen" />
+
     <param name="APP_ID" value="..." />
     <param name="APP_NAME" value="..." />
-	</gap:plugin>
+
 
 	<preference name="orientation" value="default" /> <!-- all: default means both landscape and portrait are enabled -->
     <preference name="target-device" value="universal" /> <!-- all: possible values handset, tablet, or universal -->
