@@ -123,7 +123,7 @@ function initialize() {
 							'<img src="img/procope.jpg" />' +
 							'<a href=" ' + marker.title +'.html" class="iwLink">' + marker.title + '</a> </br>'+
 							'<p> ' + item.adresse + '</p>'+
-							'<a href="#" class="iwButton" onclick="calcRoute('+item.longitude+' , ' +item.latitude +')"> Se rendre la bas ! </a>'+
+							'<a href="#" class="iwButton" onclick="calcRoute('+item.longitude+' , ' +item.latitude +')"> J\'y vais ! </a>'+
 							'</div>',
 							maxWidth : 800
 							
@@ -161,7 +161,7 @@ function initialize() {
   var RefreshDiv = document.createElement('div');
   var autoRefreshButton = new autoRefresh(RefreshDiv, map);
   RefreshDiv.index = 1;
-  map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(RefreshDiv);  
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(RefreshDiv);  
   
 
 	
@@ -259,8 +259,8 @@ function success(position) {
 	}
   });
 		
-		var DirPanButton = document.createElement('div');
-		var DirPanButton = new showDirPanel(DirPanButton, map);
+		var DirPanButtonDiv = document.createElement('div');
+		var DirPanButton = new showDirPanel(DirPanButtonDiv, map);
 		DirPanButton.index = 1;
 		map.controls[google.maps.ControlPosition.TOP_RIGHT].push(DirPanButton);  
 	};
@@ -272,6 +272,10 @@ function success(position) {
  
  
 }
+
+
+////////////////////////////// CALC ROUTE //////////////////////////////////////////////////////////
+
 
 
 /////////////////////////////// AJOUTER LE BOUTON DIRECTION PANEL /////////////////////

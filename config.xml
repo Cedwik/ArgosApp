@@ -25,16 +25,18 @@ permission on your app, which PhoneGap requires.
 <preference name="permissions"                value="none"/>
 
     <!-- Customize your app and platform with the preference element. -->
-    <preference name="phonegap-version" value="2.9.0" /> <!-- all: current version of PhoneGap -->
+    <preference name="phonegap-version" value="3.0.0" /> <!-- all: current version of PhoneGap -->
 
     <!-- Plugins -->
 
     <!-- Core plugins -->
-<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
-<plugin name="Globalization" value="org.apache.cordova.Globalization" />
-
+    <gap:plugin name="org.apache.cordova.geolocation" />
+    <gap:plugin name="org.apache.cordova.globalization" />
+    <gap:plugin name="org.apache.cordova.splashscreen" />
+	<gap:plugin name="com.phonegap.plugins.facebookconnect">
+	
     <param name="APP_ID" value="..." />
-    <param name="APP_NAME" value="..." />
+	</gap:plugin>
 
 
 	<preference name="orientation" value="default" /> <!-- all: default means both landscape and portrait are enabled -->
