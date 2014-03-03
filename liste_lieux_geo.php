@@ -9,27 +9,9 @@ $con = mysql_connect($server, $username, $password) or die ("Could not connect: 
 
 mysql_select_db($database, $con);
 	mysql_query("SET NAMES UTF8");
-$selectInfoLieu = "SELECT*FROM retro_lieu WHERE latitude != 0 " ;
+$selectInfoLieu = "SELECT*FROM retro_lieu WHERE latitude != 0";
 
 $requeteInfo = mysql_query($selectInfoLieu, $con);
-
-/*echo "<table border= solid 1px green>";
-	
-	while($row=mysql_fetch_array($requeteInfo)) {
-
-		echo "<tr>";
-			echo "<td>";
-			echo ( $row["nom_lieu"] );
-			echo "</td> <td>";
-			echo ( $row["latitude"]);
-			echo "</td>";
-			echo "<td>";
-			echo ( $row["longitude"]);
-			echo "</td>";
-		echo "</tr>";
-
-	}
-	echo "</table>";*/
 
 	$markers = array();
 	
