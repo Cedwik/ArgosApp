@@ -28,7 +28,7 @@ var watchID = null;
 //var directionsService = new google.maps.DirectionsService();		
 
 ////////////////////////////// AJOUTER DES BOUTONS A LA CARTE ////////////////////////////////////////////////////////
-
+/*
 	function centerPos(controlDiv, map) {
 
 		  // Set CSS styles for the DIV containing the control
@@ -77,8 +77,8 @@ var watchID = null;
 
 	});
 	
-	}
-
+	};
+*/
 	
 	////////////////////////////// INITIALIZE ////////////////////////////////////////////////////////
 	
@@ -129,7 +129,7 @@ function initialize() {
 			},
 			error: function(data) { //Fonction qui est appellée si l'appel ajax a échoué 
 				alert('Buuuug');
-			}
+			};
 		});
 
 
@@ -145,7 +145,7 @@ function initialize() {
 
 //  directionsDisplay.setMap(map);
 
-
+/*
   var posControlDiv = document.createElement('div');
   var posControl = new centerPos(posControlDiv, map);
   posControlDiv.index = 1;
@@ -155,7 +155,7 @@ function initialize() {
   var autoRefreshButton = new autoRefresh(RefreshDiv, map);
   RefreshDiv.index = 1;
   map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(RefreshDiv);  
-  
+  */
 
 	
 	
@@ -281,7 +281,6 @@ function findMyLocation() {
 				content: '<div class="iwPos">Vous êtes ici</div>'
 			});
 			map.setCenter(pos);
-			$('#start').append('<option value="'+ pos +'"></option>');
 		});
 		
 };
@@ -291,8 +290,6 @@ function findMyLocation() {
 
 // Watch : fonction pour activer la géolocalisation en temps réel 
 function Watch () {
-		
-
 		  if (watchID != null) {
             navigator.geolocation.clearWatch(watchID);
             watchID = null;
