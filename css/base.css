@@ -264,8 +264,9 @@ color: #E66A52;/*buuuuuuuuug*/
 		
 		
 	.iwContent {
-		min-width : 400px;
-		heigth : 500px;
+		width : 440px;
+		height : 120px;
+		overflow : hidden;
 
 	}
 	
@@ -273,42 +274,107 @@ color: #E66A52;/*buuuuuuuuug*/
 		float : left;
 		margin-right : 5px;
 		
+		
 	}
 	
-	.iwContent a, .iwContent p  {
+	.baniere {
+		width : 150px;
+		height : 100px;
+		margin-top : 14px;
+		
+	}
+	
+	.iwContent p  {
 		text-align : top;
-		line-height : 1px;
+		line-height : 10px;
+		
 	}
 	
 	.iwButton{
 		display : inline-block;
-		color : black;
-		padding : 9px 9px 9px 9px;
+		color : white;
+		padding-top: 15px;
+		padding-bottom: 15px;
 		text-decoration : none;
-		font-color : white;
-		float : right;
-		background : #E66A52;
+		text-align : center;
+		cursor : pointer;
+		width : 83px;
+		position : relative
+	 }
+	 
+	 .iwButton:active {
+		color : black;
 		
 	 }
 	 
+	 .btnFiche {
+		top : -137px;
+		left : 252px;
+		background : rgb(110,153,123);
+		
+	 }	
+
+	 .btnIti {
+		background : #E66A52;
+		top : -85px;
+		left : 335px;
+		
+	 }
+	 
+	 
+	 
 	
-	.iwLink {
-		display : inline-block;
+	.iwTitre {
+		font-size : 1.1em;
+	  }
+	  
+	  .iwPos {
+		width : 80px;
+	  }
+	  
+	  .iwType {
+		margin-top : -3px;
 		text-decoration : none;
+		line-height : 25px;
+		text-align : bottom;
 		
 	  }
 	
-	  
-#content_map {
-	width : 100%;
-	height : 90vh;
-	margin-left : -16px;
 	
-}	
+	.mapButton {
+		width : 60px;
+		height : 60px;
+	}
+	
+	#location:active {
+		background : url('../img/center_icon_active.png') no-repeat;
+	}
 
-#panel {
-	display : none;
-}
+	#location {
+		background : url('../img/center_icon2.png') no-repeat;
+
+	}
+
+	#refresh {
+		background : url('../img/loc_refresh_button.png') no-repeat;
+		
+	}
+	
+	#refresh:active {
+		background : url('../img/loc_refresh_button_active.png') no-repeat;
+		
+	}
+	
+	#content_map {
+		width : 100%;
+		height : 90vh;
+		margin-left : -16px;
+		
+	}	
+
+	#panel {
+		display : none;
+	}
 
 
       #directions-panel {

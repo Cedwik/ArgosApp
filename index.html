@@ -38,22 +38,18 @@ var directionsService = new google.maps.DirectionsService();
 
 		  // Set CSS for the control border
 		  var controlUI = document.createElement('div');
-		  controlUI.style.backgroundColor = 'white';
-		  controlUI.style.borderStyle = 'solid';
-		  controlUI.style.borderWidth = '6px';
+	//	  controlUI.style.backgroundColor = 'white';
+		  controlUI.style.backgroundOpacity = '0';
+	//	  controlUI.style.borderStyle = 'solid';
+	//	  controlUI.style.borderWidth = '1px';
+	//	  controlUI.style.borderRadius = '10px';
 		  controlUI.style.cursor = 'pointer';
 		  controlUI.style.textAlign = 'center';
 		  controlUI.title = 'Click to set the map to Home';
+		  controlUI.innerHTML = '<div class="mapButton" id="location"> </div>';
 		  controlDiv.appendChild(controlUI);
 
 		  // Set CSS for the control interior
-		  var controlText = document.createElement('div');
-		  controlText.style.fontFamily = 'Arial,sans-serif';
-		  controlText.style.fontSize = '12px';
-		  controlText.style.paddingLeft = '4px';
-		  controlText.style.paddingRight = '4px';
-		  controlText.innerHTML = '<b>Centrer</b>';
-		  controlUI.appendChild(controlText);
 
 		  // Setup the click event listeners: simply set the map to
 		  // Chicago
@@ -68,28 +64,15 @@ var directionsService = new google.maps.DirectionsService();
 		  // Set CSS styles for the DIV containing the control
 		  // Setting padding to 5 px will offset the control
 		  // from the edge of the map
-		  RefreshDiv.style.padding = '5px';
-
-		  // Set CSS for the control border
-		  var controlUI = document.createElement('div');
-		  controlUI.style.backgroundColor = 'white';
-		  controlUI.style.borderStyle = 'solid';
-		  controlUI.style.borderWidth = '6px';
-		  controlUI.style.cursor = 'pointer';
-		  controlUI.style.textAlign = 'center';
-		  controlUI.title = 'Cliquez pour activer la géolocalisation automatique';
-		  RefreshDiv.appendChild(controlUI);
-
-		  // Set CSS for the control interior
+		 
 		  var controlText = document.createElement('div');
-		  controlText.style.fontFamily = 'Arial,sans-serif';
-		  controlText.style.fontSize = '12px';
-		  controlText.style.paddingLeft = '4px';
-		  controlText.style.paddingRight = '4px';
-		  controlText.innerHTML = '<b>Auto Refreh</b>';
-		  controlUI.appendChild(controlText);
+		  controlText.style.padding = '5px';
+		   controlText.title = 'Cliquez pour activer la géolocalisation automatique';
+		  controlText.style.cursor = 'pointer';
+		  controlText.innerHTML = '<div class="mapButton" id="refresh"></div>';
+		  RefreshDiv.appendChild(controlText);
 			
-		  google.maps.event.addDomListener(controlUI, 'click', function() {
+		  google.maps.event.addDomListener(RefreshDiv, 'click', function() {
 				Watch();
 
 	});
@@ -121,17 +104,24 @@ function initialize() {
 					});
 					
 
+						
 					google.maps.event.addListener(marker, "click",  function (e) { // fonction qui va s'enclencher au clic d'un marker 											
-
+		
 						var iw = new google.maps.InfoWindow({ // Données à mettre dans l'infobulle, ici on rajoute le contenu en HTML, afin de pouvoir faire un peu de mise en page
 							content : '<div class="iwContent">'+ // div qui englobe toute l'infobule
-							'<img src="http://argosapps.fr/retro_julie_ajax_502/img/lieux/icone_lieu/procope.jpg " />' + // l'image 
-							'<a href=" ' + marker.title +'.html" class="iwLink">' + marker.title + '</a> </br>'+ //Le nom du lieu avec un lien
-							'<p> ' + item.adresse + '</p>'+ // L'adresse
-							'<p class="iwButton" onclick="calcRoute('+item.longitude+' , ' +item.latitude +')"> J\'y vais ! </a>'+ // le bouton "J'y vais" qui au clic appelle la fonction calcRoute avec la longitude et la latitude du marker ajoutés en paramètres
+							'<img src="http://argosapps.fr/retro_julie_ajax_502/img/lieux/icone_lieu/procope.jpg" class="baniere" />' + // l'image 
+							'<p class="iwTitre">' + marker.title + '</p>'+ //Nom du lieu
+							'<p> ' + item.adresse +'</p>'+//Adresse
+							'<p>' + item.code_postal + ' PARIS</p>'+ //Code postal
+							'<img src="' + item.icone_type_lieu +'" class="iwIcon" /></br>'+ //L'icone du lieu
+							'<p class="iwType">' + item.type_lieu + '</p> </br>'+ //Le type du lieu
+							//'<p> ' + item.adresse + '</p>'+ // L'adresse
+							'<p class="iwButton btnIti" onclick="calcRoute('+item.longitude+' , ' +item.latitude +')"> J\'y vais ! </a>'+ // le bouton "J'y vais" qui au clic appelle la fonction calcRoute avec la longitude et la latitude du marker ajoutés en paramètres
+							'<p class="iwButton btnFiche" onclick="redirectFiche('+item.id+')">Fiche lieu</a>'+ // le bouton "Voir la fiche" qui renvoie vers la fiche du lieu
 							'</div>'							
 						});
 						map.setCenter(LatLngMarker);	// au clic on centre la carte sur le marker			
+
 						iw.open(map, marker); // Enfin on ouvre l'infobulle 
 					});
 					
@@ -159,12 +149,12 @@ function initialize() {
   var posControlDiv = document.createElement('div');
   var posControl = new centerPos(posControlDiv, map);
   posControlDiv.index = 1;
-  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(posControlDiv);  
+  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(posControlDiv);  
 
   var RefreshDiv = document.createElement('div');
   var autoRefreshButton = new autoRefresh(RefreshDiv, map);
   RefreshDiv.index = 1;
-  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(RefreshDiv);  
+  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(RefreshDiv);  
   
 
 	
@@ -188,7 +178,7 @@ function initialize() {
 		  var infowindow = new google.maps.InfoWindow({
 			map: map,
 			position: pos,
-			content: 'Vous êtes ici'
+			content: '<div class="iwPos">Vous êtes ici</div>'
 		  });
 		
 		//Puis on centre sur le point
@@ -237,10 +227,6 @@ function initialize() {
 
 ////////////////////////////// CALC ROUTE //////////////////////////////////////////////////////////
   function calcRoute(MarkLon, MarkLat) {
-  
-  	$('#endLat').append('<option value="'+ MarkLat +'"></option>');
-	$('#endLon').append('<option value="'+ MarkLon +'"></option>');
-
 	
 navigator.geolocation.getCurrentPosition(success, error);
 
@@ -256,8 +242,8 @@ function success(position) {
   directionsService.route(request, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
 		directionsDisplay.setDirections(response);	  	
-		$('#map-canvas').css({"width":"45vw"});
-		$('#directions-panel').css({"display":"inline-block"});
+	//	$('#map-canvas').css({"width":"45vw"});
+		//$('#directions-panel').css({"display":"inline-block"});
 	  	var DirPanButtonDiv = document.createElement('div');
 		var DirPanButton = new showDirPanel(DirPanButtonDiv, map);
 		DirPanButton.index = 1;
@@ -335,7 +321,7 @@ function findMyLocation() {
 			var infowindow = new google.maps.InfoWindow({
 				map: map,
 				position: pos,
-				content: 'Vous êtes ici'
+				content: '<div class="iwPos">Vous êtes ici</div>'
 			});
 			map.setCenter(pos);
 			$('#start').append('<option value="'+ pos +'"></option>');
@@ -369,20 +355,21 @@ function Watch () {
 					var positionWatch = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 					alert('ça marche !'); 
 					// les 10 lignes ci dessus permettent d'afficher les coordonnées récupérées en texte 
-					var element = document.getElementById('geolocation');
-					element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
-								'Longitude: '          + position.coords.longitude             + '<br />' +
-								'Altitude: '           + position.coords.altitude              + '<br />' +
-								'Accuracy: '           + position.coords.accuracy              + '<br />' +
-								'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
-								'Heading: '            + position.coords.heading               + '<br />' +
-								'Speed: '              + position.coords.speed                 + '<br />' +
+					//var element = document.getElementById('geolocation');
+					//element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
+						//		'Longitude: '          + position.coords.longitude             + '<br />' +
+						//		'Altitude: '           + position.coords.altitude              + '<br />' +
+						//		'Accuracy: '           + position.coords.accuracy              + '<br />' +
+						//		'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
+						//		'Heading: '            + position.coords.heading               + '<br />' +
+						//		'Speed: '              + position.coords.speed                 + '<br />' +
 					
 					map.setCenter(positionWatch);
+					infowindow.close();
 					      var infowindow = new google.maps.InfoWindow({
 							map: map,
 							position: positionWatch,
-							content: 'Vous êtes ici'
+							content: '<div class="iwPos">Vous êtes ici</div>'
 						  });
 			};
 			
@@ -402,6 +389,83 @@ function Watch () {
 		};
 	};	
 
+	
+					function redirectFiche (idlieu) {
+							$.ajax({
+								type: "GET",
+								dataType: 'jsonp',
+								url: 'http://www.argosapps.fr/retro_php_server/fiche-lieu-selon-lieu-liste.php?callback=?',
+								data: ({'idlieu' : idlieu}), //on passe la variable en data pour la récupérer en PHP par $_GET['idcatlieu']
+								success: function(data){
+								
+									console.log('Succès fiche lieu !');
+									console.log(data); //on récupère bien les infos sur les lieux du type choisi 
+									$.each(data, function(i, item) {
+
+										//alert(item.adresse);
+										var idlieu = item.id; 
+										var nom_lieu = item.nom_lieu; 
+										var banniere = item.banniere_lieu;
+										var annee_construction = item.annee_construction;
+										var adresse = item.adresse; 
+										var site_web = item.site_web; 
+										var telephone = item.telephone; 
+										
+										var metro = item.metro;
+										var description = item.description; 
+										
+										
+										//newWin.onload permet d'attendre que newwin (page lieux.html) soit bien chargée --> programmation évènmentielle
+										//pb de crossdomain : toujours mettre http://www. !!!
+										var newWin = window.open('http://www.argosapps.fr/retro_nath_com_alert/lieux.html', '_blank');
+										newWin.onload = function() {
+										
+											// Afficher le nom du lieu
+											jQuery('.nom_lieu', newWin.document).html(nom_lieu);
+											
+											// Afficher la banniere du lieu
+											jQuery('#banniere_lieu', newWin.document).html("<img src='" +banniere+ "' alt='' />");
+											
+											// Afficher l'année de construction du lieu
+											jQuery('.annee_construction', newWin.document).html(annee_construction);
+											
+											// Afficher l'adresse du lieu
+											jQuery('.adresse', newWin.document).html(adresse);
+										
+											// Afficher le site web du lieu
+											jQuery('.site_web', newWin.document).html(site_web);
+										
+										
+											// Afficher le numéro de téléphone du lieu
+											jQuery('.telephone', newWin.document).html(telephone);
+											
+											// Afficher le métro
+											jQuery('.metro', newWin.document).html(metro);
+										
+											jQuery('#descrip_lieu', newWin.document).html(description);
+											jQuery('#hidden-id-lieu', newWin.document).html("<input type='hidden' name='id_lieu_com' value='"+idlieu+"' />");
+										};
+										
+										//alert("Lieu : " + nom_lieu + ", Adresse : " + adresse + ", Description : " + description   );
+
+									});
+									
+									
+									//maintenant, (à partir de data) il faut extraire les infos utiles : Nom lieux + petite photo des lieux
+									
+										//rediriger l'utilisateur vers la  fiche lieu (lieu choisi au clic)
+										//setTimeout(function () { window.location.href= 'http://argosapps.fr/retro_nath_com_alert/lieux.html';},2000); // 5 seconds
+										
+										//window.location.href = 'http://argosapps.fr/retro_nath_com_alert/lieux.html';
+									
+
+								},
+								error: function(){
+									//do your thing
+									console.log('so sad!');
+								}
+							});
+						}
 
 // Voici l'écouteur qui va, une fois la page chargée, appeller la fonction initialize ci dessus 
 google.maps.event.addDomListener(window, 'load', initialize);

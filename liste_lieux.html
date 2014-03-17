@@ -1,0 +1,155 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>Liste lieux</title> 
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="stylesheet" href="css/jquery-mobile-theme-01/themes/retro_style.css" />
+	<link rel="stylesheet" href="css/jquery-mobile-theme-01/themes/jquery.mobile.icons.min.css" />
+	  
+	  
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile.structure-1.4.0.min.css" />
+	  
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/menu.css" />
+	<link rel="stylesheet" href="css/liste_lieux.css" />
+
+<!--script-->  
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script> 
+	<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script> 
+</head> 
+
+<body> 
+
+<div data-role="page">
+
+	<div data-role="header" data-position="fixed" id="menu_fixe" >
+	<a href="#menu_gauche" data-icon="icon_header_bars" data-iconpos="notext">Menu</a>
+		<h1><a href="index.html">Rétrospective</a></h1>
+
+		<!--search filter bar --> 
+		<!--data inline ne marche pas-->
+		<!--<div data-inline="true" id="search_bar">
+	
+			<ul data-filter="true" >
+			</ul><!-- /search filter bar -->
+			
+<!-- bouton OK -->
+		<!--<input type="submit" name="ok" value="Rechercher" data-inline="true" data-mini="true" data-role="button" id="search"/>-->
+		<!--</div>-->
+		
+		<form id="search-bar">
+			<label for="searchkey"></label>
+			<input type="text" name="searchkey" id="searchkey" placeholder="Mot clé" data-mini="true"/>
+
+		<input type="submit" name="ok" value="Rechercher" id="search"/>
+		</form>
+		
+	</div><!-- /header -->
+	
+							<!-- MENU de GAUCHE -->
+	<div data-role="panel" id="menu_gauche" data-display="reveal" data-position="left" data-transition="slide">
+			<ul data-role='listview' data-icon="false">
+				<li>Fiches
+					<li><a href="liste_lieux.html" rel="external"><img src="img/menu/menu_gauche/icon_small_lieu.png" alt=""/>Lieux</a></li>
+					
+					<li><a href="liste_persos.html" rel="external">
+					<img src="img/menu/menu_gauche/icon_small_perso.png" alt="">Personnages</a></li>
+					
+					<li><a href="liste_epoques.html" rel="external">
+					<img src="img/menu/menu_gauche/icon_small_epoque.png" alt="">Epoques</a></li>
+					
+					<li><a href="liste_arr.html" rel="external"><img src="img/menu/menu_gauche/icon_small_arr.png" alt="">Arrondissements</a></li>
+					
+					<li><a href="img/plan_metro.png" rel="external"><img src="img/menu/menu_gauche/icon_small_plan_metro.png" alt="">Plan métro</a></li>
+				
+				<li>Communauté
+					<li><a href="ajout_lieu.html" rel="external"><img src="img/menu/menu_gauche/icon_small_ajout_lieu.png" alt="">Ajouter un lieu</a></li>
+					
+					<li><a href="#" rel="external"><img src="img/menu/menu_gauche/icon_small_evenements.png" alt="">Evènements</a></li>
+				
+				
+				<li>Compte
+					<li><a href="se_connecter.html" rel="external"><img src="img/menu/menu_gauche/icon_small_se_connecte.png" alt="">Se connecter</a></li>
+					
+					<li><a href="#" rel="external"><img src="img/menu/menu_gauche/icon_small_favoris.png" alt="">Favoris</a></li>
+					
+					<li><a href="#" rel="external"><img src="img/menu/menu_gauche/icon_small_parametres.png" alt="">Paramètres</a></li>
+			</ul>
+	</div><!-- MENU de GAUCHE -->
+	
+	<div data-role="content">
+	<div id="page_title" class="title_lieu">
+	<a href="index.html" data-role="button" data-icon="bouton_l" data-iconpos="notext" data-rel="back">Retour</a>
+		<h1>Lieux</h1>
+	</div><!-- /page_title -->
+
+	
+		
+<!--ONGLET Liste lieux A-Z / Lite des types de lieux-->
+	<div id="onglet" data-role="navbar">
+		<ul>
+			<li><a href="#liste_lieuxAZ">De A à Z</a></li>
+			<li><a href="#liste_lieuxtype">Par type</a></li>
+		</ul><!-- /ONGLET Liste lieux A-Z / Lite des types de lieux-->
+	</div>	<!-- /Onglet navbar-->
+	
+<!-- CONTENU Liste lieux A-Z -->	
+			<div class="contenu_liste" id="liste_lieuxAZ">
+
+			<br/><!--LI A CHANGER avec la BDD-->
+				<ul data-role='listview' data-icon="false" id="ul_liste_lieuxAZ"> 
+					<!-- <li><a href="#"><img src="img/menu/menu_gauche/icon_small_lieu.png" alt=""/>Invalides</a></li>
+					<li><a href="#"><img src="img/menu/menu_gauche/icon_small_lieu.png" alt=""/>Musée du Louvre</a></li>
+					<li><a href="lieux.html"><img src="img/menu/menu_gauche/icon_small_lieu.png" alt=""/>Procope</a></li> -->
+				</ul>
+				
+				<p id="lieu-dun-type">
+				</p>
+			</div>
+
+<!-- CONTENU Liste des types de lieux -->	
+			<div class="contenu_liste" id="liste_lieuxtype">
+	<br/>		
+				<ul data-role='listview' data-icon="false" id="ul_liste_lieuxtype">
+
+					<!-- <li><a href="#"><img src="img/lieux/icon_small_bar.png" alt=""/>Bar, pub</a></li>
+					<li><a href="liste_lieux_par_type.html"><img src="img/lieux/icon_small_cafe.png" alt=""/>Café, restaurant</a></li>
+					<li><a href="#"><img src="img/lieux/icon_small_cinema.png" alt=""/>Cinéma, théâtres, cabaret</a></li>
+					<li><a href="#"><img src="img/lieux/icon_small_hotel.png" alt=""/>Hôtel, maison, palais</a></li>
+					<li><a href="#"><img src="img/lieux/icon_small_musee.png" alt=""/>Musée</a></li>
+					<li><a href="#"><img src="img/lieux/icon_small_autre.png" alt=""/>Autres : dans la rue...</a></li> -->
+				</ul>
+				
+				
+			</div>
+			
+			<div id="lieux_ap_type">
+				<ul></ul>
+			</div>
+							
+
+	</div><!-- /content -->
+</div><!-- /page -->
+
+<!-- script pour afficher menu de gauche  -->
+	<script text="text/javascript" src="js/menu_gauche.js"></script> 
+	
+<!-- listé lieux -->
+	<script text="text/javascript" src="js/liste-lieux.js"></script> 
+	
+<!-- Barre de recherche des lieux -->
+	<script text="text/javascript" src="js/cherche-lieu.js"></script> 
+
+
+	
+<!--base-->
+	<script text="text/javascript" src="js/var_app.js"></script> 
+	<script text="text/javascript" src="js/zepto.min.js"></script> 
+	<script>
+		app.initialize();
+	</script>
+		
+</body>
+</html>
