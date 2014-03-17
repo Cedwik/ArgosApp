@@ -371,23 +371,6 @@ color: #E66A52;/*buuuuuuuuug*/
 		margin-left : -16px;
 		
 	}	
-
-	#panel {
-		display : none;
-	}
-
-
-      #directions-panel {
-        height: 100%;
-        width: 50vw;
-		overflow: auto;
-		max-height : 95vh;
-		float : right;
-		position : absolute;
-		top : 50px;
-		right : 0px;
-		display : none;
-      }
 	  
       #control {
         background: #fff;
