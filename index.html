@@ -267,50 +267,6 @@ function success(position) {
 ////////////////////////////// FIN CALC ROUTE //////////////////////////////////////////////////////////
 
 
-
-/////////////////////////////// AJOUTER LE BOUTON DIRECTION PANEL /////////////////////
-	function showDirPanel(DirPanButton, map, watchButton) {
-		
-		  // Set CSS styles for the DIV containing the control
-		  // Setting padding to 5 px will offset the control
-		  // from the edge of the map
-		  DirPanButton.style.padding = '5px';
-
-		  // Set CSS for the control border
-		  var controlUI = document.createElement('div');
-		  controlUI.style.backgroundColor = 'white';
-		  controlUI.style.borderStyle = 'solid';
-		  controlUI.style.borderWidth = '6px';
-		  controlUI.style.cursor = 'pointer';
-		  controlUI.style.textAlign = 'center';
-		  controlUI.title = 'Cliquez pour activer la géolocalisation automatique';
-		  DirPanButton.appendChild(controlUI);
-
-		  // Set CSS for the control interior
-		  var controlText = document.createElement('div');
-		  controlText.style.fontFamily = 'Arial,sans-serif';
-		  controlText.style.fontSize = '12px';
-		  controlText.style.paddingLeft = '4px';
-		  controlText.style.paddingRight = '4px';
-		  controlText.innerHTML = '<b>Directions</b>';
-		  controlUI.appendChild(controlText);
-			
-		  google.maps.event.addDomListener(controlUI, 'click', function() {
-		
-				if ( $('#map-canvas').width() == "75vw" ) {
-					$('#map-canvas').css({"width":"100vw"});
-				} else {
-					$('#map-canvas').css({"width":"75vw"});
-				}
-
-			});
-	
-	}
-
-
-
-
-
 //la fonction pour récupérer notre position actuelle et recentrer la carte 
 function findMyLocation() {
 	    navigator.geolocation.getCurrentPosition(function(position) {
@@ -388,84 +344,6 @@ function Watch () {
 			alert('Pour désactiver le watchID, faut l\'activer !');
 		};
 	};	
-
-	
-					function redirectFiche (idlieu) {
-							$.ajax({
-								type: "GET",
-								dataType: 'jsonp',
-								url: 'http://www.argosapps.fr/retro_php_server/fiche-lieu-selon-lieu-liste.php?callback=?',
-								data: ({'idlieu' : idlieu}), //on passe la variable en data pour la récupérer en PHP par $_GET['idcatlieu']
-								success: function(data){
-								
-									console.log('Succès fiche lieu !');
-									console.log(data); //on récupère bien les infos sur les lieux du type choisi 
-									$.each(data, function(i, item) {
-
-										//alert(item.adresse);
-										var idlieu = item.id; 
-										var nom_lieu = item.nom_lieu; 
-										var banniere = item.banniere_lieu;
-										var annee_construction = item.annee_construction;
-										var adresse = item.adresse; 
-										var site_web = item.site_web; 
-										var telephone = item.telephone; 
-										
-										var metro = item.metro;
-										var description = item.description; 
-										
-										
-										//newWin.onload permet d'attendre que newwin (page lieux.html) soit bien chargée --> programmation évènmentielle
-										//pb de crossdomain : toujours mettre http://www. !!!
-										var newWin = window.open('http://www.argosapps.fr/retro_nath_com_alert/lieux.html', '_blank');
-										newWin.onload = function() {
-										
-											// Afficher le nom du lieu
-											jQuery('.nom_lieu', newWin.document).html(nom_lieu);
-											
-											// Afficher la banniere du lieu
-											jQuery('#banniere_lieu', newWin.document).html("<img src='" +banniere+ "' alt='' />");
-											
-											// Afficher l'année de construction du lieu
-											jQuery('.annee_construction', newWin.document).html(annee_construction);
-											
-											// Afficher l'adresse du lieu
-											jQuery('.adresse', newWin.document).html(adresse);
-										
-											// Afficher le site web du lieu
-											jQuery('.site_web', newWin.document).html(site_web);
-										
-										
-											// Afficher le numéro de téléphone du lieu
-											jQuery('.telephone', newWin.document).html(telephone);
-											
-											// Afficher le métro
-											jQuery('.metro', newWin.document).html(metro);
-										
-											jQuery('#descrip_lieu', newWin.document).html(description);
-											jQuery('#hidden-id-lieu', newWin.document).html("<input type='hidden' name='id_lieu_com' value='"+idlieu+"' />");
-										};
-										
-										//alert("Lieu : " + nom_lieu + ", Adresse : " + adresse + ", Description : " + description   );
-
-									});
-									
-									
-									//maintenant, (à partir de data) il faut extraire les infos utiles : Nom lieux + petite photo des lieux
-									
-										//rediriger l'utilisateur vers la  fiche lieu (lieu choisi au clic)
-										//setTimeout(function () { window.location.href= 'http://argosapps.fr/retro_nath_com_alert/lieux.html';},2000); // 5 seconds
-										
-										//window.location.href = 'http://argosapps.fr/retro_nath_com_alert/lieux.html';
-									
-
-								},
-								error: function(){
-									//do your thing
-									console.log('so sad!');
-								}
-							});
-						}
 
 // Voici l'écouteur qui va, une fois la page chargée, appeller la fonction initialize ci dessus 
 google.maps.event.addDomListener(window, 'load', initialize);
