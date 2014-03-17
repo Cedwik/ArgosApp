@@ -24,8 +24,8 @@
 //variables pour initialiser la carte et le watchID (qui sert pour la géolocalisation en temps réel)
 var map;
 var watchID = null;
-var directionsDisplay;
-var directionsService = new google.maps.DirectionsService();		
+//var directionsDisplay;
+//var directionsService = new google.maps.DirectionsService();		
 
 ////////////////////////////// AJOUTER DES BOUTONS A LA CARTE ////////////////////////////////////////////////////////
 
@@ -136,14 +136,14 @@ function initialize() {
 
 
 
-	directionsDisplay = new google.maps.DirectionsRenderer(); // Active les itinéraires sur google maps 
-	google.maps.visualRefresh = true; // Active la mise a jour des styles de la carte
+//	directionsDisplay = new google.maps.DirectionsRenderer(); // Active les itinéraires sur google maps 
+//	google.maps.visualRefresh = true; // Active la mise a jour des styles de la carte
 	
 	var mapOptions = {zoom: 13, mapTypeId: google.maps.MapTypeId.TERRAIN, disableDefaultUI: true}; // défini les options de la carte, ici le zoom, le type  de la carte, les controles affichés (ici aucun)
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions); //on insère la carte dans l'élément ayant pour id map-canvas 
   		
 
-  directionsDisplay.setMap(map);
+//  directionsDisplay.setMap(map);
 
 
   var posControlDiv = document.createElement('div');
@@ -226,6 +226,7 @@ function initialize() {
 
 
 ////////////////////////////// CALC ROUTE //////////////////////////////////////////////////////////
+/*
   function calcRoute(MarkLon, MarkLat) {
 	
 navigator.geolocation.getCurrentPosition(success, error);
@@ -265,7 +266,7 @@ function success(position) {
  
 }
 ////////////////////////////// FIN CALC ROUTE //////////////////////////////////////////////////////////
-
+*/
 
 //la fonction pour récupérer notre position actuelle et recentrer la carte 
 function findMyLocation() {
