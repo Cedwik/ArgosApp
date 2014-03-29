@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html> 
 <head> 
-	<title>Liste lieux</title> 
+	<title>Liste personnages</title> 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	
@@ -13,13 +13,14 @@
 	  
 	<link rel="stylesheet" href="css/base.css" />
 	<link rel="stylesheet" href="css/menu.css" />
-	<link rel="stylesheet" href="css/liste_lieux.css" />
+	<link rel="stylesheet" href="css/liste_perso.css" />
+		<link rel="stylesheet" href="css/perso.css" />
+
 
 <!--script-->  
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script> 
 	<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script> 
 </head> 
-
 <body> 
 
 <div data-role="page">
@@ -29,22 +30,21 @@
 		<h1><a href="index.html">Rétrospective</a></h1>
 
 		<!--search filter bar --> 
-		<!--data inline ne marche pas-->
 		<!--<div data-inline="true" id="search_bar">
-	
 			<ul data-filter="true" >
 			</ul><!-- /search filter bar -->
 			
 <!-- bouton OK -->
-		<!--<input type="submit" name="ok" value="Rechercher" data-inline="true" data-mini="true" data-role="button" id="search"/>-->
-		<!--</div>-->
+<!-- 		<input type="submit" name="ok" value="Rechercher" data-inline="true" data-mini="true" data-role="button" id="search"/>-->
+		<!--</div>--> 
 		
-		<form id="search-bar">
+			<form id="search-bar">
 			<label for="searchkey"></label>
-			<input type="text" name="searchkey" id="searchkey" placeholder="Mot clé" data-mini="true"/>
+			<input type="text" name="searchkey" id="searchkey" placeholder="Mot clÃ© (personnage)" data-mini="true"/>
 
 		<input type="submit" name="ok" value="Rechercher" id="search"/>
 		</form>
+		
 		
 	</div><!-- /header -->
 	
@@ -79,55 +79,51 @@
 			</ul>
 	</div><!-- MENU de GAUCHE -->
 	
-	<div data-role="content">
-	<div id="page_title" class="title_lieu">
+	<div data-role="content" class="contenu-div">
+	<div id="page_title">
 	<a href="index.html" data-role="button" data-icon="bouton_l" data-iconpos="notext" data-rel="back">Retour</a>
-		<h1>Lieux</h1>
+		<h1>Personnages</h1>
 	</div><!-- /page_title -->
 
+	
 		
-<!--ONGLET Liste lieux A-Z / Lite des types de lieux-->
+<!--ONGLET Liste perso A-Z / Lite des types de perso-->
 	<div id="onglet" data-role="navbar">
 		<ul>
-			<li><a href="#liste_lieuxAZ">De A à Z</a></li>
-			<li><a href="#liste_lieuxtype">Par type</a></li>
-		</ul><!-- /ONGLET Liste lieux A-Z / Lite des types de lieux-->
+			<li><a id="li_a_z" href="#liste_persoAZ">De A à Z</a></li>
+			<li><a id="li_types_perso" href="#liste_persotype">Par type</a></li>
+		</ul><!-- /ONGLET Liste perso A-Z / Lite des types de perso-->
 	</div>	<!-- /Onglet navbar-->
+		
+		<p class="resultat-titre"></p>
+		<p class="nb-resultats"></p>
+		<div class="contenu_recherche" id="recherche-resultat"><ul data-role='listview' data-icon="false"></ul></div>
 	
-<!-- CONTENU Liste lieux A-Z -->	
-			<div class="contenu_liste" id="liste_lieuxAZ">
-
-			<br/><!--LI A CHANGER avec la BDD-->
-				<ul data-role='listview' data-icon="false" id="ul_liste_lieuxAZ"> 
-					<!-- <li><a href="#"><img src="img/menu/menu_gauche/icon_small_lieu.png" alt=""/>Invalides</a></li>
-					<li><a href="#"><img src="img/menu/menu_gauche/icon_small_lieu.png" alt=""/>Musée du Louvre</a></li>
-					<li><a href="lieux.html"><img src="img/menu/menu_gauche/icon_small_lieu.png" alt=""/>Procope</a></li> -->
-				</ul>
-				
-				<p id="lieu-dun-type">
-				</p>
-			</div>
-
-<!-- CONTENU Liste des types de lieux -->	
-			<div class="contenu_liste" id="liste_lieuxtype">
-	<br/>		
-				<ul data-role='listview' data-icon="false" id="ul_liste_lieuxtype">
-
-					<!-- <li><a href="#"><img src="img/lieux/icon_small_bar.png" alt=""/>Bar, pub</a></li>
-					<li><a href="liste_lieux_par_type.html"><img src="img/lieux/icon_small_cafe.png" alt=""/>Café, restaurant</a></li>
-					<li><a href="#"><img src="img/lieux/icon_small_cinema.png" alt=""/>Cinéma, théâtres, cabaret</a></li>
-					<li><a href="#"><img src="img/lieux/icon_small_hotel.png" alt=""/>Hôtel, maison, palais</a></li>
-					<li><a href="#"><img src="img/lieux/icon_small_musee.png" alt=""/>Musée</a></li>
-					<li><a href="#"><img src="img/lieux/icon_small_autre.png" alt=""/>Autres : dans la rue...</a></li> -->
-				</ul>
-				
-				
-			</div>
+<!-- CONTENU Liste perso A-Z -->	
+			<div class="contenu_liste" id="liste_persoAZ">
 			
-			<div id="lieux_ap_type">
-				<ul></ul>
+<br/>			<!--LI A CHANGER avec la BDD-->
+				<ul data-role='listview' data-icon="false" id="ul_liste_persoAZ">
+					<!-- <li><a href="#"><img src="img/menu/menu_gauche/icon_small_lieu.png" alt=""/>Bourdelle Antoine</a></li>
+					<li><a href="#"><img src="img/menu/menu_gauche/icon_small_lieu.png" alt=""/>Pasteur</a></li>
+					<li><a href="personnage.html"><img src="img/menu/menu_gauche/icon_small_lieu.png" alt=""/>Voltaire FranÃ§ois-Arouet</a></li> -->
+				</ul>
 			</div>
-							
+
+<!-- CONTENU Liste des types de perso -->	
+			<div class="contenu_liste" id="liste_persotype">
+	<br/>			
+				<ul data-role='listview' data-icon="false" id="ul_liste_persotype">
+	
+					<!-- <li><a href="#"><img src="img/perso/icon_small_peintre.png" alt=""/>Artistes, peintres, scuplteur</a></li>
+					<li><a href="#"><img src="img/perso/icon_small_cinema.png" alt=""/>CinÃ©ma</a></li>
+					<li><a href="liste_personnage_par_type.html"><img src="img/perso/icon_small_ecrivain.png" alt=""/>Ecrivain</a></li>
+					<li><a href="liste_personnage_par_type.html"><img src="img/perso/icon_small_mode.png" alt=""/>Mode</a></li>
+					<li><a href="liste_personnage_par_type.html"><img src="img/perso/icon_small_musicien.png" alt=""/>Musicien, chanteur</a></li>
+					<li><a href="liste_personnage_par_type.html"><img src="img/perso/icon_small_politicien.png" alt=""/>Politicien</a></li>
+					<li><a href="liste_personnage_par_type.html"><img src="img/perso/icon_small_scientifique.png" alt=""/>Scientifique</a></li> -->
+				</ul>
+			</div>			
 
 	</div><!-- /content -->
 </div><!-- /page -->
@@ -135,13 +131,14 @@
 <!-- script pour afficher menu de gauche  -->
 	<script text="text/javascript" src="js/menu_gauche.js"></script> 
 	
-<!-- listé lieux -->
-	<script text="text/javascript" src="js/liste-lieux.js"></script> 
+<!-- liste perso-->
+	<script text="text/javascript" src="js/liste-persos.js"></script> 
+	<script text="text/javascript" src="js/liste-persos-type.js"></script> 
 	
-<!-- Barre de recherche des lieux -->
-	<script text="text/javascript" src="js/cherche-lieu.js"></script> 
-
-
+	
+	
+<!-- Barre de recherche des personnages -->
+	<script text="text/javascript" src="js/cherche-perso.js"></script> 
 	
 <!--base-->
 	<script text="text/javascript" src="js/var_app.js"></script> 
@@ -149,6 +146,6 @@
 	<script>
 		app.initialize();
 	</script>
-		
+	
 </body>
 </html>

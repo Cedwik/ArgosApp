@@ -9,6 +9,8 @@
 	  
 	<link rel="stylesheet" href="css/base.css" />
 	<link rel="stylesheet" href="css/menu.css" />
+		<link rel="stylesheet" href="css/lieux.css" />
+
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile.structure-1.4.0.min.css" />
   
   
@@ -20,7 +22,7 @@
 	<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script> 
 	<script type="text/javascript">
 
-		
+
 //variables pour initialiser la carte et le watchID (qui sert pour la géolocalisation en temps réel)
 var map;
 var watchID = null;
@@ -30,48 +32,47 @@ var directionsService = new google.maps.DirectionsService();
 ////////////////////////////// AJOUTER DES BOUTONS A LA CARTE ////////////////////////////////////////////////////////
 
 	function centerPos(controlDiv, map) {
+    
+    // Set CSS styles for the DIV containing the control
+		// Setting padding to 5 px will offset the control
+		// from the edge of the map
+		controlDiv.style.padding = '5px';
 
-		  // Set CSS styles for the DIV containing the control
-		  // Setting padding to 5 px will offset the control
-		  // from the edge of the map
-		  controlDiv.style.padding = '5px';
+		// Set CSS for the control border
+    var controlUI = document.createElement('div');
+		//controlUI.style.backgroundColor = 'white';
+		controlUI.style.backgroundOpacity = '0';
+		//controlUI.style.borderStyle = 'solid';
+		//controlUI.style.borderWidth = '1px';
+		//controlUI.style.borderRadius = '10px';
+		controlUI.style.cursor = 'pointer';
+		controlUI.style.textAlign = 'center';
+		controlUI.title = 'Click to set the map to Home';
+		controlUI.innerHTML = '<div class="mapButton" id="location"> </div>';
+		controlDiv.appendChild(controlUI);
 
-		  // Set CSS for the control border
-		  var controlUI = document.createElement('div');
-	//	  controlUI.style.backgroundColor = 'white';
-		  controlUI.style.backgroundOpacity = '0';
-	//	  controlUI.style.borderStyle = 'solid';
-	//	  controlUI.style.borderWidth = '1px';
-	//	  controlUI.style.borderRadius = '10px';
-		  controlUI.style.cursor = 'pointer';
-		  controlUI.style.textAlign = 'center';
-		  controlUI.title = 'Click to set the map to Home';
-		  controlUI.innerHTML = '<div class="mapButton" id="location"> </div>';
-		  controlDiv.appendChild(controlUI);
+		// Set CSS for the control interior
 
-		  // Set CSS for the control interior
-
-		  // Setup the click event listeners: simply set the map to
-		  // Chicago
-		  google.maps.event.addDomListener(controlUI, 'click', function() {
-			findMyLocation();
-		  });
-
-	};
+		// Setup the click event listeners: simply set the map to
+		// Chicago
+		google.maps.event.addDomListener(controlUI, 'click', function() {
+		indMyLocation();
+		});
+	}
 	
 	function autoRefresh(RefreshDiv, map, watchButton) {
 		
-		  // Set CSS styles for the DIV containing the control
-		  // Setting padding to 5 px will offset the control
-		  // from the edge of the map
+		// Set CSS styles for the DIV containing the control
+		// Setting padding to 5 px will offset the control
+		// from the edge of the map
 		 
-		  var controlText = document.createElement('div');
-		   controlText.title = 'Cliquez pour activer la géolocalisation automatique';
-		  controlText.style.cursor = 'pointer';
-		  controlText.innerHTML = '<div class="mapButton" id="refresh"></div>';
-		  RefreshDiv.appendChild(controlText);
+		var controlText = document.createElement('div');
+		controlText.title = 'Cliquez pour activer la géolocalisation automatique';
+		controlText.style.cursor = 'pointer';
+		controlText.innerHTML = '<div class="mapButton" id="refresh"></div>';
+		RefreshDiv.appendChild(controlText);
 			
-		  google.maps.event.addDomListener(RefreshDiv, 'click', function() {
+		google.maps.event.addDomListener(RefreshDiv, 'click', function() {
 				Watch();
 
 	});
@@ -84,7 +85,7 @@ var directionsService = new google.maps.DirectionsService();
 // fonction initialize qui s'active dès le chargement de la page : affiche la carte, centrée sur la position du mobile, 
 function initialize() {
 		
-	
+		$('#fiche_lieu').hide();
 		// Bout de code ajax qui va récupérer les informations dans la table retro_lieu dans la base de données afin afficher les marqueurs et au clic une fenêtre qui montre un bref aperçu du lieu et propose de s'y rendre 
 		$.ajax({ 
 			type: 'GET',
@@ -92,38 +93,28 @@ function initialize() {
 			dataType: 'JSONp',
 			timeout: 8000,
 			success: function(data) { //fonction appellée en cas de succes 
-				
 				$.each(data, function(i,item){ // boucle qui va faire le tour du tableau, à chaque passage dans une ligne du tableau on récupère les informations pour les utiliser
 					var LatLngMarker = new google.maps.LatLng(item.latitude, item.longitude); // on récupère les coordonnées du lieu pour en faire une variable utilisable par l'API Google Maps
-					
 					var marker = new google.maps.Marker({ // données à mettre dans le marker 
 						position: LatLngMarker, // la position
 						map: map, // la carte Google maps dans laquelle il sera inséré
 						title : item.nom_lieu // Le nom du lieu qui s'affiche au passage de la souris. Mais cette variable nous servira pour récupérer le nom du lieu a afficher dans l'infobulle 
 					});
 					
-
-						
-					google.maps.event.addListener(marker, "click",  function (e) { // fonction qui va s'enclencher au clic d'un marker 											
-		
+          google.maps.event.addListener(marker, "click",  function (e) { // fonction qui va s'enclencher au clic d'un marker 													
 						var iw = new google.maps.InfoWindow({ // Données à mettre dans l'infobulle, ici on rajoute le contenu en HTML, afin de pouvoir faire un peu de mise en page
 							content : '<div class="iwContent">'+ // div qui englobe toute l'infobule
-							'<img src="http://argosapps.fr/retro_julie_ajax_502/img/lieux/icone_lieu/procope.jpg" class="baniere" />' + // l'image 
-							'<p class="iwTitre">' + marker.title + '</p>'+ //Nom du lieu
-							'<p> ' + item.adresse +'</p>'+//Adresse
+							'<img src="'+item.min+'" class="baniere" />' + // l'image 
+							'<p class="iwTitre">' + marker.title +'</p>'+ //Nom du lieu
+							'<p class="adresse"> ' + item.adresse +'</p>'+//Adresse
 							'<p>' + item.code_postal + ' PARIS</p>'+ //Code postal
-							'<img src="' + item.icone_type_lieu +'" class="iwIcon" /></br>'+ //L'icone du lieu
-							'<p class="iwType">' + item.type_lieu + '</p> </br>'+ //Le type du lieu
-							//'<p> ' + item.adresse + '</p>'+ // L'adresse
 							'<p class="iwButton btnIti" onclick="calcRoute('+item.longitude+' , ' +item.latitude +')"> J\'y vais ! </a>'+ // le bouton "J'y vais" qui au clic appelle la fonction calcRoute avec la longitude et la latitude du marker ajoutés en paramètres
-							'<p class="iwButton btnFiche" onclick="redirectFiche('+item.id+')">Fiche lieu</a>'+ // le bouton "Voir la fiche" qui renvoie vers la fiche du lieu
+							'<p class="iwButton btnFiche" onclick="redirectFiche('+item.id+')">Fiche lieu</a>'+ // le bouton "Voir la fiche" qui renvoie vers la fiche du lieu avec pour argument l'id du lieu cliqué 
 							'</div>'							
 						});
-						map.setCenter(LatLngMarker);	// au clic on centre la carte sur le marker			
-
+						map.setCenter(LatLngMarker);	// au clic on centre la carte sur le marker	
 						iw.open(map, marker); // Enfin on ouvre l'infobulle 
 					});
-					
 				});
 			},
 			error: function(data) { //Fonction qui est appellée si l'appel ajax a échoué 
@@ -190,7 +181,7 @@ function initialize() {
 	  }   else {
 		// Browser doesn't support Geolocation
 		handleNoGeolocation(false);
-		};
+		}
 		//Affiche l'erreur, et affiche une page avec une coordonnée fixe 
 		
 	function handleNoGeolocation(errorFlag) {
@@ -218,7 +209,7 @@ function initialize() {
 
 		
 
-};
+}
 
 
 ////////////////////////////// FIN INITIALIZE ////////////////////////////////////////////////////////
@@ -345,13 +336,60 @@ function Watch () {
 			alert('Pour désactiver le watchID, faut l\'activer !');
 		};
 	};	
+	
+	function redirectFiche(id_lieu) {
+		$('#content_map').hide();
+		var nomLieu = $('#page_title');
+		var infoLieu = $('#info_lieu ul:first');
+		var infoLieuRight = $('#info_lieu ul:last-child');
+		var descriptionLieu = $('#descrip_lieu');
+		var banniereLieu = $('#banniere_lieu');
+		
+		$.ajax({
+			type: 'GET',
+			url: 'http://www.argosapps.fr/retro_php_server/lieu_cedwik.php?&jsoncallback=?',
+			dataType: 'JSONp',
+			timeout: 8000,
+			data : {'id_lieu' : id_lieu },
+			success: function(data) {
+				$.each(data, function(i,item){
+					//la valeur de l'id du lien (a) correspond à l'id du type dans la table
+					banniereLieu.append('<img src="'+item.banniere_lieu+'" alt=""/>');	
+					infoLieu.append('<li class="left">'+item.adresse+'</li>');
+					infoLieu.append('<li class="left">'+item.code_postal+'</li>');
+					infoLieu.append('<li class="left">'+item.metro+'</li>');
+					infoLieuRight.append('<li class="right">0'+item.telephone+'</li>');
+					infoLieuRight.append('<li class="right"><a href="http://'+item.site_web+'" rel="external">'+item.site_web+'</a></li>');				
+					infoLieuRight.append('<li class="right"><a href="img/plan_metro.png" rel="external">Voir le plan de métro</a></li>');				
+					descriptionLieu.append(item.description);				
+					nomLieu.append('<h1>'+item.nom_lieu+'</h1>');				
+				});
+				
+
+					//on va appeler l'url du fichier php (en get) en fonction de la variable idcatperso --> selon la requête
+				
+				},
+			error: function(data) {
+				infoLieu.append('<li>There was an error loading the bugs');
+				alert('Buuuug');
+			}
+			
+		});
+		
+		
+						$('#fiche_lieu').show();
+
+	
+	
+	}
+	
+	
 
 // Voici l'écouteur qui va, une fois la page chargée, appeller la fonction initialize ci dessus 
 google.maps.event.addDomListener(window, 'load', initialize);
 
 
 
-	  
 	  </script>
 </head>
  
@@ -366,19 +404,145 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	<!-- bouton qui fait sortir le menu de gauche-->
 	<a href="#menu_gauche" data-icon="icon_header_bars" data-iconpos="notext" data-corners="false">Menu</a>
 		<h1><a href="index.html">Rétrospective</a></h1><!-- redirection vers la page d'accueil menu-->
+		
+
 	</div><!-- /header -->
 
-	<div data-role="content" id="content_map">	
-<!--	<div align="center">
-            <a href="#" class="btn" onclick="findMyLocation();">Find My Location</a>
-            <p id="location"></p>
-        </div>
--->		
-	<div id="map-canvas"></div>
-	
+
+		<div data-role="content">	
+			<div id="content_map">
+
+				<div id="map-canvas"></div>
+			
+			
+			</div>
+			
+			<div id="fiche_lieu">
+				<div id="banniere_lieu">
+					<!-- <img src="img/lieux/banniere_lieu/procope.png" alt="" /> -->
+						</div>
+							
+						<!-- info lieu-->
+						<div id="info_lieu" class="rose">
+					<ul>
+					<!--<li class="left">13 Rue de l'Ancienne Comédieqdfsgfgsfgfs</li>
+						<li class="left">75006 Paris</li>
+						<li class="left">Métro: 4 5 6 Odéon</li> -->
+
+					</ul>
+					<ul>
+					<!-- <li class="right">01 40 46 79 00</li>
+						<li class="right"><a href="http://www.procope.com">www.procope.com</a></li>
+						<li class="right"><a href="img/plan_metro.png">Voir le plan de métro</a></li> -->
+
+					</ul>
+						</div><!-- /info lieu-->
+
+					<br/>	
+						
+						<!--descrip lieu-->
+						<div id="descrip_lieu">
+					<!-- Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard.  -->
+						</div><!-- /descrip lieu-->	
+						
+					<br/>	
+						<!--note & like-->
+						<div id="note_utilisateur">
+						<form>
+							<ul>
+								<!-- <li>Note utilisateur : 4/5</li> -->
+								<li data-role="fieldcontain">A vous de noter : 
+						<select name="manote" id="note" data-mini="true" data-native-menu="false" data-icon="bouton_b">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select></li>
+						<!--moyenne note-->
+						<!-- <li></li> -->
+							</ul>
+						<p class="button">	
+							<input type="submit" name="add_note" value="Ajouter" data-mini="true"/>
+						</p>	
+						</form>
+						</div><!-- /note & like-->
+						<br/>	
+						
+						<!--galerie photo-->
+						<div id="galerie_photo">
+							<div class="gallery-item"><a href="img/img01.png" rel="external" data-lightbox="user_place_img"><img src="img/img01.png" alt="Image 01" /></a></div> 
+							<div class="gallery-item"><a href="img/img02.png" rel="external" data-lightbox="user_place_img"><img src="img/img02.png" alt="Image 02" /></a></div>
+							<div class="gallery-item"><a href="img/img03.png" rel="external" data-lightbox="user_place_img"><img src="img/img03.png" alt="Image 03" /></a></div> 
+							<a href="#">Voir la galerie photo des utilisateurs</a>
+							  <a id="takePhotoButton" data-role="button">Take Photo</a>   
+							
+							<img src="img/capture_picture.png" alt="Prendre une photo" /><button onclick="capturePhoto();">Prendre une photo</button> <br>
+						<!-- <button  onclick="capturePhotoEdit();">Capture Editable Photo</button> <br> -->
+						 <img src="img/add_picture.png" alt="Ajouter une photo" /><button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">Ajouter une photo</button><br>
+						<!-- <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>-->
+
+						<img style="display:none;width:120px;height:90px;" id="smallImage" src="" />
+						</div><!-- /galerie photo-->
+						
+						<br/>	
+						<!--frequenté par-->
+					<div id="lieu_frequente_par" class="fondbeige rose alinea">
+						<h3><span class="bold">Lieu fréquenté par</span></h3>
+							<ul data-role="controlgroup" data-mini="true">
+							
+							<!--LI A CHANGER SELON BDD-->
+								<li><a href="personnage.html" data-role="button" data-icon="bouton_r" data-iconpos="right" >Voltaire François-Arouet</a></li>
+								<li><a href="" data-role="button" data-icon="bouton_r" data-iconpos="right" >Rousseau</a></li>
+								<li><a href="#" data-role="button" data-icon="bouton_r" data-iconpos="right" >Franklin Benjamin</a></li>
+							</ul>
+							
+					<!-- bouton je veux y aller -->	
+					<p class="button">
+						<input type="button" name="see_map" value="Je veux y aller" data-mini="true"/>
+					</p>	
+						</div><!-- fréquenté par -->
+
+					<br/>
+
+						<!-- commentaire-->
+							<div id="zone_commentaire" class="fondbeige">
+						<h3><span class="bold rose">Commentaires</span></h3>
+						
+
+					<form id="add-com">
+
+					<!-- pseudo -->
+						<label for="pseudo" class="ui-hidden-accessible">Pseudo</label>
+					<input type="text" name="pseudo" id="pseudo" placeholder="Pseudo" data-mini="true"/>
+
+					<!--Titre commentaire DONE BDD--> 
+						<label for="titre_com" class="ui-hidden-accessible">Titre</label>
+					<input type="text" name="titre_com" id="titre_com" placeholder="Titre" data-mini="true"/>
+
+					<!--Commentaire DONE BDD-->
+						<label for="commentaire" class="ui-hidden-accessible">Commentaire</label>
+					<textarea name="commentaire" id="commentaire" data-mini="true" placeholder="Laisser un commentaire"></textarea>
+						
+					<!-- bouton Commenter-->
+					<p class="button">
+						<input type="submit" name="send_comment" id="bouton_commenter" value="Commenter" data-mini="true" />
+					</p>
+					</form>
+						
+
+					<!-- liste des commentaires user -->	
+						<div id="zone_com_utilisateur">
+					<!-- 	<ul class="com_utilisateur">
+						</ul> -->
+						
+							
+						</div><!-- /liste des commentaires user -->	
+							</div><!-- /commentaire-->
+			
+			</div>
 	
 	</div><!-- /content -->
-	
 	
 		<!-- MENU de GAUCHE -->
 	<div data-role="panel" id="menu_gauche" data-display="reveal" data-position="left" data-transition="slide">
@@ -413,7 +577,15 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	
 </div><!-- /page -->
 
+
+
+
 <!-- script pour afficher menu de gauche  -->
-<script text="text/javascript" src="js/menu_gauche.js"></script> 
+<script text="text/javascript" src="js/menu_gauche.js"></script> 	
+
+	
+<!--base-->
+	<script text="text/javascript" src="js/var_app.js"></script> 
+	<script text="text/javascript" src="js/zepto.min.js"></script> 
 </body>
 </html>

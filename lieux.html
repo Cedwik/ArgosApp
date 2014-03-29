@@ -1,0 +1,225 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>template page lieu</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="stylesheet" href="css/jquery-mobile-theme-01/themes/retro_style.css" />
+	<link rel="stylesheet" href="css/jquery-mobile-theme-01/themes/jquery.mobile.icons.min.css" />
+	  
+	  
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile.structure-1.4.0.min.css" />
+	  
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/menu.css" />
+	<link rel="stylesheet" href="css/lieux.css" />
+	
+	<!--lightbox-->
+	<link href="lightbox/css/lightbox.css" rel="stylesheet" />
+	
+	<!-- <script text="text/javascript" src="js/camera.js"></script>  -->
+<!--script-->  
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script> 
+	<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script> 
+	
+
+</head> 
+<body> 
+
+<div data-role="page">
+
+	<div data-role="header" data-position="fixed" id="menu_fixe" >
+	<a href="#menu_gauche" data-icon="icon_header_bars" data-iconpos="notext">Menu</a>
+		<h1><a href="index.html">Rétrospective</a></h1>
+	</div><!-- /header -->
+	
+							<!-- MENU de GAUCHE -->
+	<div data-role="panel" id="menu_gauche" data-display="reveal" data-position="left" data-transition="slide">
+			<ul data-role='listview' data-icon="false">
+				<li>Fiches
+					<li><a href="liste_lieux.html" rel="external"><img src="img/menu/menu_gauche/icon_small_lieu.png" alt=""/>Lieux</a></li>
+					
+					<li><a href="liste_persos.html" rel="external">
+					<img src="img/menu/menu_gauche/icon_small_perso.png" alt="">Personnages</a></li>
+					
+					<li><a href="liste_epoques.html" rel="external">
+					<img src="img/menu/menu_gauche/icon_small_epoque.png" alt="">Epoques</a></li>
+					
+					<li><a href="liste_arr.html" rel="external"><img src="img/menu/menu_gauche/icon_small_arr.png" alt="">Arrondissements</a></li>
+					
+					<li><a href="img/plan_metro.png" rel="external"><img src="img/menu/menu_gauche/icon_small_plan_metro.png" alt="">Plan métro</a></li>
+				
+				<li>Communauté
+					<li><a href="ajout_lieu.html" rel="external"><img src="img/menu/menu_gauche/icon_small_ajout_lieu.png" alt="">Ajouter un lieu</a></li>
+					
+					<li><a href="#" rel="external"><img src="img/menu/menu_gauche/icon_small_evenements.png" alt="">Evènements</a></li>
+				
+				
+				<li>Compte
+					<li><a href="se_connecter.html" rel="external"><img src="img/menu/menu_gauche/icon_small_se_connecte.png" alt="">Se connecter</a></li>
+					
+					<li><a href="#" rel="external"><img src="img/menu/menu_gauche/icon_small_favoris.png" alt="">Favoris</a></li>
+					
+					<li><a href="#" rel="external"><img src="img/menu/menu_gauche/icon_small_parametres.png" alt="">Paramètres</a></li>
+			</ul>
+	</div><!-- MENU de GAUCHE -->
+	
+		<div data-role="content">
+	<div id="page_title">
+	<a href="index.html" data-role="button" data-icon="bouton_l" data-iconpos="notext" data-rel="back">Retour</a>
+<!-- 	<div id="etat_lieu"></div> -->
+		<!-- <h1>Café Procope</h1> --><!--A CHANGER SELON LE NOM BDD-->
+	</div><!-- /page_title -->
+
+	<div id="banniere_lieu">
+<!-- <img src="img/lieux/banniere_lieu/procope.png" alt="" /> -->
+	</div>
+		
+	<!-- info lieu-->
+	<div id="info_lieu" class="rose">
+<ul>
+<!--<li class="left">13 Rue de l'Ancienne Comédieqdfsgfgsfgfs</li>
+	<li class="left">75006 Paris</li>
+	<li class="left">Métro: 4 5 6 Odéon</li> -->
+
+</ul>
+<ul>
+<!-- <li class="right">01 40 46 79 00</li>
+	<li class="right"><a href="http://www.procope.com">www.procope.com</a></li>
+	<li class="right"><a href="img/plan_metro.png">Voir le plan de métro</a></li> -->
+
+</ul>
+	</div><!-- /info lieu-->
+
+<br/>	
+	
+	<!--descrip lieu-->
+	<div id="descrip_lieu">
+<!-- Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard.  -->
+	</div><!-- /descrip lieu-->	
+	
+<br/>	
+	<!--note & like-->
+	<div id="note_utilisateur">
+	<form>
+		<ul>
+			<!-- <li>Note utilisateur : 4/5</li> -->
+			<li data-role="fieldcontain">A vous de noter : 
+	<select name="manote" id="note" data-mini="true" data-native-menu="false" data-icon="bouton_b">
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+	</select></li>
+	<!--moyenne note-->
+	<!-- <li></li> -->
+		</ul>
+	<p class="button">	
+		<input type="submit" name="add_note" value="Ajouter" data-mini="true"/>
+	</p>	
+	</form>
+	</div><!-- /note & like-->
+	<br/>	
+	
+	<!--galerie photo-->
+	<div id="galerie_photo">
+		<div class="gallery-item"><a href="img/img01.png" rel="external" data-lightbox="user_place_img"><img src="img/img01.png" alt="Image 01" /></a></div> 
+		<div class="gallery-item"><a href="img/img02.png" rel="external" data-lightbox="user_place_img"><img src="img/img02.png" alt="Image 02" /></a></div>
+		<div class="gallery-item"><a href="img/img03.png" rel="external" data-lightbox="user_place_img"><img src="img/img03.png" alt="Image 03" /></a></div> 
+		<a href="#">Voir la galerie photo des utilisateurs</a>
+		  <a id="takePhotoButton" data-role="button">Take Photo</a>   
+		
+		<img src="img/capture_picture.png" alt="Prendre une photo" /><button onclick="capturePhoto();">Prendre une photo</button> <br>
+    <!-- <button  onclick="capturePhotoEdit();">Capture Editable Photo</button> <br> -->
+     <img src="img/add_picture.png" alt="Ajouter une photo" /><button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">Ajouter une photo</button><br>
+    <!-- <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>-->
+
+    <img style="display:none;width:120px;height:90px;" id="smallImage" src="" />
+	</div><!-- /galerie photo-->
+	
+	<br/>	
+	<!--frequenté par-->
+<div id="lieu_frequente_par" class="fondbeige rose alinea">
+	<h3><span class="bold">Lieu fréquenté par</span></h3>
+		<ul data-role="controlgroup" data-mini="true">
+		
+		<!--LI A CHANGER SELON BDD-->
+			<li><a href="personnage.html" data-role="button" data-icon="bouton_r" data-iconpos="right" >Voltaire François-Arouet</a></li>
+			<li><a href="" data-role="button" data-icon="bouton_r" data-iconpos="right" >Rousseau</a></li>
+			<li><a href="#" data-role="button" data-icon="bouton_r" data-iconpos="right" >Franklin Benjamin</a></li>
+		</ul>
+		
+<!-- bouton je veux y aller -->	
+<p class="button">
+	<input type="button" name="see_map" value="Je veux y aller" data-mini="true"/>
+</p>	
+	</div><!-- fréquenté par -->
+
+<br/>
+
+	<!-- commentaire-->
+		<div id="zone_commentaire" class="fondbeige">
+	<h3><span class="bold rose">Commentaires</span></h3>
+	
+
+<form id="add-com">
+
+<!-- pseudo -->
+	<label for="pseudo" class="ui-hidden-accessible">Pseudo</label>
+<input type="text" name="pseudo" id="pseudo" placeholder="Pseudo" data-mini="true"/>
+
+<!--Titre commentaire DONE BDD--> 
+	<label for="titre_com" class="ui-hidden-accessible">Titre</label>
+<input type="text" name="titre_com" id="titre_com" placeholder="Titre" data-mini="true"/>
+
+<!--Commentaire DONE BDD-->
+	<label for="commentaire" class="ui-hidden-accessible">Commentaire</label>
+<textarea name="commentaire" id="commentaire" data-mini="true" placeholder="Laisser un commentaire"></textarea>
+	
+<!-- bouton Commenter-->
+<p class="button">
+	<input type="submit" name="send_comment" id="bouton_commenter" value="Commenter" data-mini="true" />
+</p>
+</form>
+	
+
+<!-- liste des commentaires user -->	
+	<div id="zone_com_utilisateur">
+<!-- 	<ul class="com_utilisateur">
+	</ul> -->
+	
+		
+	</div><!-- /liste des commentaires user -->	
+		</div><!-- /commentaire-->
+
+
+	<!--</div><!-- /content -->
+<!--</div><!-- /page -->
+
+<!-- script pour afficher menu de gauche  -->
+	<script text="text/javascript" src="js/menu_gauche.js"></script> 
+	
+	
+<!-- info lieu + commentaire --> 	
+	<script text="text/javascript" src="js/lieux.js"></script> 
+	<script text="text/javascript" src="js/note.js"></script> 
+	<script text="text/javascript" src="js/commentaire.js"></script> 
+	
+
+	<!--<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.4.0/moment-with-langs.js"></script>-->
+	
+	<!--lightbox-->
+	<script src="lightbox/js/lightbox-2.6.min.js"></script>
+	
+	
+	
+<!--base-->
+	<script text="text/javascript" src="js/var_app.js"></script> 
+	<script text="text/javascript" src="js/zepto.min.js"></script> 
+	<script>
+		app.initialize();
+	</script>
+</body>
+</html>
