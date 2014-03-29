@@ -30,53 +30,7 @@ var watchID = null;
 
 ////////////////////////////// AJOUTER DES BOUTONS A LA CARTE ////////////////////////////////////////////////////////
 
-	function centerPos(controlDiv, map) {
-    
-    // Set CSS styles for the DIV containing the control
-		// Setting padding to 5 px will offset the control
-		// from the edge of the map
-		controlDiv.style.padding = '5px';
 
-		// Set CSS for the control border
-    var controlUI = document.createElement('div');
-		//controlUI.style.backgroundColor = 'white';
-		controlUI.style.backgroundOpacity = '0';
-		//controlUI.style.borderStyle = 'solid';
-		//controlUI.style.borderWidth = '1px';
-		//controlUI.style.borderRadius = '10px';
-		controlUI.style.cursor = 'pointer';
-		controlUI.style.textAlign = 'center';
-		controlUI.title = 'Click to set the map to Home';
-		controlUI.innerHTML = '<div class="mapButton" id="location"> </div>';
-		controlDiv.appendChild(controlUI);
-
-		// Set CSS for the control interior
-
-		// Setup the click event listeners: simply set the map to
-		// Chicago
-		google.maps.event.addDomListener(controlUI, 'click', function() {
-		findMyLocation();
-		});
-	}
-	
-	function autoRefresh(RefreshDiv, map, watchButton) {
-		
-		// Set CSS styles for the DIV containing the control
-		// Setting padding to 5 px will offset the control
-		// from the edge of the map
-		 
-		var controlText = document.createElement('div');
-		controlText.title = 'Cliquez pour activer la géolocalisation automatique';
-		controlText.style.cursor = 'pointer';
-		controlText.innerHTML = '<div class="mapButton" id="refresh"></div>';
-		RefreshDiv.appendChild(controlText);
-			
-		google.maps.event.addDomListener(RefreshDiv, 'click', function() {
-				Watch();
-
-		});
-	
-	}
 
 	
 	////////////////////////////// INITIALIZE ////////////////////////////////////////////////////////
@@ -125,23 +79,13 @@ function initialize() {
 
 
 
+ 
 	google.maps.visualRefresh = true; // Active la mise a jour des styles de la carte
 	
 	var mapOptions = {zoom: 13, mapTypeId: google.maps.MapTypeId.TERRAIN, disableDefaultUI: true}; // défini les options de la carte, ici le zoom, le type  de la carte, les controles affichés (ici aucun)
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions); //on insère la carte dans l'élément ayant pour id map-canvas 
   		
 
-
-
-  var posControlDiv = document.createElement('div');
-  var posControl = new centerPos(posControlDiv, map);
-  posControlDiv.index = 1;
-  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(posControlDiv);  
-
-  var RefreshDiv = document.createElement('div');
-  var autoRefreshButton = new autoRefresh(RefreshDiv, map);
-  RefreshDiv.index = 1;
-  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(RefreshDiv);  
   
 
 	
@@ -203,44 +147,6 @@ function findMyLocation() {
 		});
 		
 }
-
-
-
-
-// Watch : fonction pour activer la géolocalisation en temps réel 
-function Watch () {
-		
-
-		  if (watchID !== null) {
-            navigator.geolocation.clearWatch(watchID);
-            watchID = null;
-			alert('NSA : "ok pardon on arrete :(" ');
-        } else {
-			var options = { //on définit les options de la fonction watchID, timeout : le temps avant que la position ne se rafraichisse (pas sur)  			enableHighAccuracy : activer la géolocalisation précise 
-				timeout: 10000,
-				enableHighAccuracy : true
-			};
-        watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
-				
-		}
-}
-			
-			
-			function onSuccess(position) { //si la récupération des coordonnées marche, on appelle cette fonction 
-					var positionWatch = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);			
-					map.setCenter(positionWatch);
-					InfoWindow.close();
-					       InfoWindow = new google.maps.InfoWindow({
-							map: map,
-							position: positionWatch,
-							content: '<div class="iwPos">Vous êtes ici</div>'
-						  });
-			}
-			
-			//fonction appellée si la récupération de coordonnées ne marche pas. c'est facultatif et ne sert surtout que pour le developpement 
-			function onError(error) {
-				alert('code: '    + error.code    + '\n message: ' + error.message + '\n');
-			}
 
 
 	
