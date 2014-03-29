@@ -26,8 +26,7 @@
 //variables pour initialiser la carte et le watchID (qui sert pour la géolocalisation en temps réel)
 var map;
 var watchID = null;
-var directionsDisplay;
-var directionsService = new google.maps.DirectionsService();		
+	
 
 ////////////////////////////// AJOUTER DES BOUTONS A LA CARTE ////////////////////////////////////////////////////////
 
@@ -126,14 +125,12 @@ function initialize() {
 
 
 
-	directionsDisplay = new google.maps.DirectionsRenderer(); // Active les itinéraires sur google maps 
 	google.maps.visualRefresh = true; // Active la mise a jour des styles de la carte
 	
 	var mapOptions = {zoom: 13, mapTypeId: google.maps.MapTypeId.TERRAIN, disableDefaultUI: true}; // défini les options de la carte, ici le zoom, le type  de la carte, les controles affichés (ici aucun)
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions); //on insère la carte dans l'élément ayant pour id map-canvas 
   		
 
-  directionsDisplay.setMap(map);
 
 
   var posControlDiv = document.createElement('div');
@@ -210,7 +207,40 @@ function findMyLocation() {
 
 
 
+// Watch : fonction pour activer la géolocalisation en temps réel 
+function Watch () {
+		
 
+		  if (watchID !== null) {
+            navigator.geolocation.clearWatch(watchID);
+            watchID = null;
+			alert('NSA : "ok pardon on arrete :(" ');
+        } else {
+			var options = { //on définit les options de la fonction watchID, timeout : le temps avant que la position ne se rafraichisse (pas sur)  			enableHighAccuracy : activer la géolocalisation précise 
+				timeout: 10000,
+				enableHighAccuracy : true
+			};
+        watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+				
+		}
+}
+			
+			
+			function onSuccess(position) { //si la récupération des coordonnées marche, on appelle cette fonction 
+					var positionWatch = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);			
+					map.setCenter(positionWatch);
+					InfoWindow.close();
+					       InfoWindow = new google.maps.InfoWindow({
+							map: map,
+							position: positionWatch,
+							content: '<div class="iwPos">Vous êtes ici</div>'
+						  });
+			}
+			
+			//fonction appellée si la récupération de coordonnées ne marche pas. c'est facultatif et ne sert surtout que pour le developpement 
+			function onError(error) {
+				alert('code: '    + error.code    + '\n message: ' + error.message + '\n');
+			}
 
 
 	
