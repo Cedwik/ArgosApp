@@ -335,7 +335,8 @@ function Watch () {
 	}
 
 
-
+// Voici l'écouteur qui va, une fois la page chargée, appeller la fonction initialize ci dessus 
+google.maps.event.addDomListener(window, 'load', initialize);
 	  </script>
 </head>
  
